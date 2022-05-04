@@ -13,7 +13,8 @@ namespace assignment1
 		// loc var i is detecting parameter s's size
 		int i = 0;
 
-		while(s[i] != '\0') i++;
+		while(s[i] != '\0')
+			i++;
 		mSize = i;
 		mString = new char[mSize + 1];
 		i = 0;
@@ -29,7 +30,8 @@ namespace assignment1
 		: mSize(other.GetLength())
 	{
 		mString = new char[mSize + 1];
-		for(int i = 0; i < mSize; ++i) mString[i] = other.mString[i];
+		for(unsigned int i = 0; i < mSize; ++i)
+			mString[i] = other.mString[i];
 		mString[mSize] = '\0';
 	}
 
@@ -50,8 +52,11 @@ namespace assignment1
 
 	void MyString::Append(const char* s)
 	{
-		int i = 0;
-		while(s[i] != '\0') i++;
+		if (s == nullptr || s[0] == '\0')
+			return;
+		unsigned int i = 0;
+		while(s[i] != '\0')
+			i++;
 		mSize += i;
 		char* newString = new char[mSize + 1];
 		i = 0;
@@ -60,8 +65,7 @@ namespace assignment1
 			newString[i] = mString[i];
 			i++;
 		}
-		int j = 0;
-		for(i; i < mSize; ++i)
+		for(unsigned int j = 0; i < mSize; ++i)
 		{
 			newString[i] = s[j];
 			j++;
@@ -76,11 +80,15 @@ namespace assignment1
 	{
 		size_t other_len = other.GetLength();
 		size_t total_len = mSize + other_len;
+		if (other_len < 1)
+			return *this;
 		// alloc new mem to heap
 		auto* newString = new char[total_len + 1];
-		for(int i = 0; i < mSize; ++i) newString[i] = mString[i];
+		for(unsigned int i = 0; i < mSize; ++i)
+			newString[i] = mString[i];
 		int j = 0;
-		for(int i = mSize; i < total_len; ++i) newString[i] = other.mString[j++];
+		for(unsigned int i = mSize; i < total_len; ++i)
+			newString[i] = other.mString[j++];
 		newString[total_len] = '\0';
 
 		return {newString};
@@ -88,16 +96,21 @@ namespace assignment1
 
 	int MyString::IndexOf(const char* s)
 	{
-		for(int i = 0; i < mSize; ++i)
+		if (s[0] == '\0')
+			return 0;
+		for(unsigned int i = 0; i < mSize; ++i)
 		{
 			// when mString encounter s's first character jump else
 			if(mString[i] == s[0])
 			{
-				int j = i;
-				for(j; j <= mSize; j++)
+				int i2 = 0;
+				for(unsigned int j = i; j <= mSize; j++)
 				{
-					if(*s == '\0') return i;
-					if(mString[j] != *(s++)) break;
+					if(s[i2] == '\0')
+						return static_cast<int>(i);
+					if(mString[j] != s[i2])
+						break;
+					i2++;
 				}
 			}
 		}
@@ -108,15 +121,20 @@ namespace assignment1
 	// NNNEEDDD TO BE DONE
 	int MyString::LastIndexOf(const char* s)
 	{
-		for(int i = mSize - 1; i >= 0; --i)
+		if (s[0] == '\0')
+			return mSize;
+		for(int i = static_cast<int>(mSize) - 1; i >= 0; --i)
 		{
 			if(mString[i] == s[0])
 			{
-				int j = i;
-				for(j; j <= mSize; ++j)
+				int i2 = 0;
+				for(unsigned int j = i; j <= mSize; ++j)
 				{
-					if(*s == '\0') return i;
-					if(mString[j] != *(s++)) break;
+					if(s[i2] == '\0')
+						return i;
+					if (mString[j] != s[i2])
+						break;
+					i2++;
 				}
 			}
 		}
@@ -125,24 +143,6 @@ namespace assignment1
 
 	void MyString::Interleave(const char* s)
 	{
-		// bool flow = false;
-		// int i = 0;
-		// while (s[i] != '\0')
-		// 	i++;
-		// const size_t totalLen = i + mSize;
-		// mSize = totalLen;
-		// auto *temporaryStore = new char[totalLen + 1];
-		// for (i = 0; i < totalLen; ++i)
-		// {
-		// 	flow == true ? temporaryStore[i] = mString[i / 2] : temporaryStore[i] =  s[i / 2];
-		// 	flow == true ? flow = false : flow = true;
-		// }
-		// temporaryStore[totalLen] = '\0';
-		// // remove mem from heap
-		// delete[] mString;
-		// // pointing new String
-		// mString = temporaryStore;
-
 		int sLen = 0;
 		int flag = 1;
 		while(s[sLen] != '\0') sLen++;
@@ -150,7 +150,7 @@ namespace assignment1
 		char* tempStore = new char[mSize + 1];
 		int   idx1 = 0;
 		int   idx2 = 0;
-		for(int i = 0; i < mSize; ++i)
+		for(unsigned int i = 0; i < mSize; ++i)
 		{
 			if(flag % 2 == 1 && mString[idx1] != '\0')
 			{
@@ -164,6 +164,10 @@ namespace assignment1
 					tempStore[i] = s[idx2];
 					idx2++;
 				}
+				else
+				{
+					i--;
+				}
 			}
 			flag ++;
 		}
@@ -174,11 +178,14 @@ namespace assignment1
 
 	bool MyString::RemoveAt(unsigned int i)
 	{
-		if(i >= mSize) return false;
+		if(i >= mSize)
+			return false;
 		char* temporary = new char[mSize];
 		mSize -= 1;
-		for(int index = 0; index < i; ++index) temporary[index] = mString[index];
-		for(int index = i; index < mSize; ++index) temporary[index] = mString[index + 1];
+		for(unsigned int index = 0; index < i; ++index)
+			temporary[index] = mString[index];
+		for(unsigned int index = i; index < mSize; ++index)
+			temporary[index] = mString[index + 1];
 		temporary[mSize] = '\0';
 
 		delete[] mString;
@@ -190,10 +197,12 @@ namespace assignment1
 	{
 		if(totalLength <= mSize) return;
 		char*  temp = new char[totalLength + 1];
-		size_t blank = totalLength - mSize;
-		for(int i = 0; i < blank; ++i) temp[i] = ' ';
+		unsigned int blank = totalLength - mSize;
+		for(unsigned int i = 0; i < blank; ++i)
+			temp[i] = ' ';
 		int j = 0;
-		for(int i = blank; i < totalLength; ++i) temp[i] = mString[j++];
+		for(unsigned int i = blank; i < totalLength; ++i)
+			temp[i] = mString[j++];
 		temp[totalLength] = '\0';
 		delete[] mString;
 		mSize = totalLength;
@@ -204,10 +213,12 @@ namespace assignment1
 	{
 		if(totalLength <= mSize) return;
 		char*        temp = new char[totalLength + 1];
-		const size_t blank = totalLength - mSize;
-		for(int i = 0; i < blank; ++i) temp[i] = c;
+		const unsigned int blank = totalLength - mSize;
+		for(unsigned int i = 0; i < blank; ++i)
+			temp[i] = c;
 		int j = 0;
-		for(int i = blank; i < totalLength; ++i) temp[i] = mString[j++];
+		for(unsigned int i = blank; i < totalLength; ++i)
+			temp[i] = mString[j++];
 		temp[totalLength] = '\0';
 		delete[] mString;
 		mSize = totalLength;
@@ -218,8 +229,10 @@ namespace assignment1
 	{
 		if(totalLength <= mSize) return;
 		char* temp = new char[totalLength + 1];
-		for(int i = 0; i < mSize; ++i) temp[i] = mString[i];
-		for(int i = mSize; i < totalLength; ++i) temp[i] = ' ';
+		for(unsigned int i = 0; i < mSize; ++i)
+			temp[i] = mString[i];
+		for(unsigned int i = mSize; i < totalLength; ++i)
+			temp[i] = ' ';
 		temp[totalLength] = '\0';
 		delete[] mString;
 		mSize = totalLength;
@@ -230,9 +243,10 @@ namespace assignment1
 	{
 		if(totalLength <= mSize) return;
 		char*        temp = new char[totalLength + 1];
-		const size_t blank = totalLength - mSize;
-		for(int i = 0; i < mSize; ++i) temp[i] = mString[i];
-		for(int i = mSize; i < totalLength; ++i) temp[i] = c;
+		for(unsigned int i = 0; i < mSize; ++i)
+			temp[i] = mString[i];
+		for(unsigned int i = mSize; i < totalLength; ++i)
+			temp[i] = c;
 		temp[totalLength] = '\0';
 		delete[] mString;
 		mSize = totalLength;
@@ -242,7 +256,7 @@ namespace assignment1
 	void MyString::Reverse()
 	{
 		int lh = 0;
-		int rh = mSize - 1;
+		int rh = static_cast<int>(mSize) - 1;
 		while(lh < rh)
 		{
 			char temp = mString[lh];
@@ -255,27 +269,35 @@ namespace assignment1
 
 	bool MyString::operator==(const MyString& rhs) const
 	{
-		if(rhs.GetLength() < 1) return false;
-
-		for(int i = 0; i < mSize; ++i)
+		if (rhs.mString == nullptr)
+			return false;
+		if (rhs.GetLength() < 1 || GetLength() < 1)
+			return false;
+		if (rhs.GetLength() != GetLength())
+			return false;
+		for(unsigned int i = 0; i < mSize; ++i)
 		{
-			if(mString[i] != rhs.mString[i]) return false;
+			if(mString[i] != rhs.mString[i])
+				return false;
 		}
 		return true;
 	}
 
 	MyString& MyString::operator=(const MyString& rhs)
 	{
+		 if (rhs == *this)
+		 	return *this;
 		mSize = rhs.GetLength();
-		char* newString = new char[mSize + 1];
-		for(int i = 0; i < mSize; ++i) newString[i] = rhs.mString[i];
-		newString[mSize] = '\0';
+		mString = new char[mSize + 1];
+		for(unsigned int i = 0; i < mSize; ++i)
+			mString[i] = rhs.mString[i];
+		mString[mSize] = '\0';
 		return *this;
 	}
 
 	void MyString::ToLower()
 	{
-		for(int i = 0; i < mSize; ++i)
+		for(unsigned int i = 0; i < mSize; ++i)
 		{
 			if(mString[i] >= 'A' && mString[i] <= 'Z') mString[i] += 32;
 		}
@@ -283,7 +305,7 @@ namespace assignment1
 
 	void MyString::ToUpper()
 	{
-		for(int i = 0; i < mSize; ++i)
+		for(unsigned int i = 0; i < mSize; ++i)
 		{
 			if(mString[i] >= 'a' && mString[i] <= 'z') mString[i] -= 32;
 		}

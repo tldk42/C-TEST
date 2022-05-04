@@ -28,6 +28,6 @@ namespace assignment1
 
 	private:
 		char*  mString;
-		size_t mSize;
+		unsigned int mSize;
 	};
 }
