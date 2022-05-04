@@ -13,14 +13,12 @@ namespace assignment1
 		// loc var i is detecting parameter s's size
 		int i = 0;
 
-		while(s[i] != '\0')
-		{
+		while (s[i] != '\0')
 			i++;
-		}
 		mSize = i;
 		mString = new char[mSize + 1];
 		i = 0;
-		while(s[i] != '\0')
+		while (s[i] != '\0')
 		{
 			mString[i] = s[i];
 			i ++;
@@ -32,7 +30,7 @@ namespace assignment1
 		: mSize(other.GetLength())
 	{
 		mString = new char[mSize + 1];
-		for(unsigned int i = 0; i < mSize; ++i)
+		for (unsigned int i = 0; i < mSize; ++i)
 			mString[i] = other.mString[i];
 		mString[mSize] = '\0';
 	}
@@ -57,17 +55,17 @@ namespace assignment1
 		if (s == nullptr || s[0] == '\0')
 			return;
 		unsigned int i = 0;
-		while(s[i] != '\0')
+		while (s[i] != '\0')
 			i++;
 		mSize += i;
 		char* newString = new char[mSize + 1];
 		i = 0;
-		while(mString[i] != '\0')
+		while (mString[i] != '\0')
 		{
 			newString[i] = mString[i];
 			i++;
 		}
-		for(unsigned int j = 0; i < mSize; ++i)
+		for (unsigned int j = 0; i < mSize; ++i)
 		{
 			newString[i] = s[j];
 			j++;
@@ -148,7 +146,8 @@ namespace assignment1
 	{
 		int sLen = 0;
 		int flag = 1;
-		while (s[sLen] != '\0') sLen++;
+		while (s[sLen] != '\0')
+			sLen++;
 		if (sLen == 0)
 			return ;
 		mSize += sLen;
@@ -217,7 +216,8 @@ namespace assignment1
 
 	void MyString::PadLeft(unsigned int totalLength, const char c)
 	{
-		if (totalLength <= mSize) return;
+		if (totalLength <= mSize)
+			return;
 		char*        temp = new char[totalLength + 1];
 		const unsigned int blank = totalLength - mSize;
 		for (unsigned int i = 0; i < blank; ++i)
@@ -233,7 +233,8 @@ namespace assignment1
 
 	void MyString::PadRight(unsigned int totalLength)
 	{
-		if (totalLength <= mSize) return;
+		if (totalLength <= mSize)
+			return;
 		char* temp = new char[totalLength + 1];
 		for (unsigned int i = 0; i < mSize; ++i)
 			temp[i] = mString[i];
@@ -247,7 +248,8 @@ namespace assignment1
 
 	void MyString::PadRight(unsigned int totalLength, const char c)
 	{
-		if (totalLength <= mSize) return;
+		if (totalLength <= mSize)
+			return;
 		char*        temp = new char[totalLength + 1];
 		for (unsigned int i = 0; i < mSize; ++i)
 			temp[i] = mString[i];
@@ -279,7 +281,7 @@ namespace assignment1
 
 	bool MyString::operator==(const MyString& rhs) const
 	{
-		if (rhs.mString == nullptr)
+		if (rhs.mString[0] == '\0')
 			return false;
 		if (rhs.GetLength() < 1 || GetLength() < 1)
 			return false;
@@ -287,7 +289,7 @@ namespace assignment1
 			return false;
 		for (unsigned int i = 0; i < mSize; ++i)
 		{
-			if(mString[i] != rhs.mString[i])
+			if (mString[i] != rhs.mString[i])
 				return false;
 		}
 		return true;
@@ -295,9 +297,10 @@ namespace assignment1
 
 	MyString& MyString::operator=(const MyString& rhs)
 	{
-		 if (rhs == *this)
-		 	return *this;
-		if (rhs.mString[0] =='\0')
+		if (rhs == *this)
+			return *this;
+		delete[] mString;
+		if (rhs.mString[0] == '\0')
 		{
 			mSize = 0;
 			mString[0] = '\0';
@@ -315,7 +318,7 @@ namespace assignment1
 	{
 		for (unsigned int i = 0; i < mSize; ++i)
 		{
-			if(mString[i] >= 'A' && mString[i] <= 'Z') mString[i] += 32;
+			if (mString[i] >= 'A' && mString[i] <= 'Z') mString[i] += 32;
 		}
 	}
 
@@ -323,7 +326,7 @@ namespace assignment1
 	{
 		for (unsigned int i = 0; i < mSize; ++i)
 		{
-			if(mString[i] >= 'a' && mString[i] <= 'z') mString[i] -= 32;
+			if (mString[i] >= 'a' && mString[i] <= 'z') mString[i] -= 32;
 		}
 	}
 }
