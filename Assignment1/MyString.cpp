@@ -144,12 +144,12 @@ namespace assignment1
 
 	void MyString::Interleave(const char* s)
 	{
+		if (s[0] == '\0')
+			return;
 		int sLen = 0;
 		int flag = 1;
 		while (s[sLen] != '\0')
 			sLen++;
-		if (sLen == 0)
-			return ;
 		mSize += sLen;
 		char* tempStore = new char[mSize + 1];
 		int   idx1 = 0;
@@ -281,10 +281,6 @@ namespace assignment1
 
 	bool MyString::operator==(const MyString& rhs) const
 	{
-		if (rhs.mString[0] == '\0')
-			return false;
-		if (rhs.GetLength() < 1 || GetLength() < 1)
-			return false;
 		if (rhs.GetLength() != GetLength())
 			return false;
 		for (unsigned int i = 0; i < mSize; ++i)
@@ -318,7 +314,8 @@ namespace assignment1
 	{
 		for (unsigned int i = 0; i < mSize; ++i)
 		{
-			if (mString[i] >= 'A' && mString[i] <= 'Z') mString[i] += 32;
+			if (mString[i] >= 'A' && mString[i] <= 'Z')
+				mString[i] += 32;
 		}
 	}
 
@@ -326,7 +323,8 @@ namespace assignment1
 	{
 		for (unsigned int i = 0; i < mSize; ++i)
 		{
-			if (mString[i] >= 'a' && mString[i] <= 'z') mString[i] -= 32;
+			if (mString[i] >= 'a' && mString[i] <= 'z')
+				mString[i] -= 32;
 		}
 	}
 }
