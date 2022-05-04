@@ -6,6 +6,8 @@ void test();
 int main()
 {
 	//test();
+	//MyString test("");
+	//test = "";
 }
 void test()
 {

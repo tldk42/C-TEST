@@ -14,7 +14,9 @@ namespace assignment1
 		int i = 0;
 
 		while(s[i] != '\0')
+		{
 			i++;
+		}
 		mSize = i;
 		mString = new char[mSize + 1];
 		i = 0;
@@ -78,37 +80,38 @@ namespace assignment1
 	// don't destroy
 	MyString MyString::operator+(const MyString& other) const
 	{
-		size_t other_len = other.GetLength();
-		size_t total_len = mSize + other_len;
-		if (other_len < 1)
+		size_t otherLen = other.GetLength();
+		size_t totalLen = mSize + otherLen;
+		if (otherLen < 1)
 			return *this;
 		// alloc new mem to heap
-		auto* newString = new char[total_len + 1];
-		for(unsigned int i = 0; i < mSize; ++i)
+		auto* newString = new char[totalLen + 1];
+		for (unsigned int i = 0; i < mSize; ++i)
 			newString[i] = mString[i];
 		int j = 0;
-		for(unsigned int i = mSize; i < total_len; ++i)
+		for (unsigned int i = mSize; i < totalLen; ++i)
 			newString[i] = other.mString[j++];
-		newString[total_len] = '\0';
-
-		return {newString};
+		newString[totalLen] = '\0';
+		MyString newStr(newString);
+		delete[] newString;
+		return newStr;
 	}
 
 	int MyString::IndexOf(const char* s)
 	{
 		if (s[0] == '\0')
 			return 0;
-		for(unsigned int i = 0; i < mSize; ++i)
+		for (unsigned int i = 0; i < mSize; ++i)
 		{
 			// when mString encounter s's first character jump else
-			if(mString[i] == s[0])
+			if (mString[i] == s[0])
 			{
 				int i2 = 0;
-				for(unsigned int j = i; j <= mSize; j++)
+				for (unsigned int j = i; j <= mSize; j++)
 				{
-					if(s[i2] == '\0')
+					if (s[i2] == '\0')
 						return static_cast<int>(i);
-					if(mString[j] != s[i2])
+					if (mString[j] != s[i2])
 						break;
 					i2++;
 				}
@@ -123,14 +126,14 @@ namespace assignment1
 	{
 		if (s[0] == '\0')
 			return mSize;
-		for(int i = static_cast<int>(mSize) - 1; i >= 0; --i)
+		for (int i = static_cast<int>(mSize) - 1; i >= 0; --i)
 		{
-			if(mString[i] == s[0])
+			if (mString[i] == s[0])
 			{
 				int i2 = 0;
-				for(unsigned int j = i; j <= mSize; ++j)
+				for (unsigned int j = i; j <= mSize; ++j)
 				{
-					if(s[i2] == '\0')
+					if (s[i2] == '\0')
 						return i;
 					if (mString[j] != s[i2])
 						break;
@@ -145,21 +148,23 @@ namespace assignment1
 	{
 		int sLen = 0;
 		int flag = 1;
-		while(s[sLen] != '\0') sLen++;
+		while (s[sLen] != '\0') sLen++;
+		if (sLen == 0)
+			return ;
 		mSize += sLen;
 		char* tempStore = new char[mSize + 1];
 		int   idx1 = 0;
 		int   idx2 = 0;
-		for(unsigned int i = 0; i < mSize; ++i)
+		for (unsigned int i = 0; i < mSize; ++i)
 		{
-			if(flag % 2 == 1 && mString[idx1] != '\0')
+			if (flag % 2 == 1 && mString[idx1] != '\0')
 			{
 				tempStore[i] = mString[idx1];
 				idx1++;
 			}
 			else
 			{
-				if(s[idx2] != '\0')
+				if (s[idx2] != '\0')
 				{
 					tempStore[i] = s[idx2];
 					idx2++;
@@ -178,13 +183,13 @@ namespace assignment1
 
 	bool MyString::RemoveAt(unsigned int i)
 	{
-		if(i >= mSize)
+		if (i >= mSize)
 			return false;
 		char* temporary = new char[mSize];
 		mSize -= 1;
-		for(unsigned int index = 0; index < i; ++index)
+		for (unsigned int index = 0; index < i; ++index)
 			temporary[index] = mString[index];
-		for(unsigned int index = i; index < mSize; ++index)
+		for (unsigned int index = i; index < mSize; ++index)
 			temporary[index] = mString[index + 1];
 		temporary[mSize] = '\0';
 
@@ -195,13 +200,14 @@ namespace assignment1
 
 	void MyString::PadLeft(unsigned int totalLength)
 	{
-		if(totalLength <= mSize) return;
+		if (totalLength <= mSize)
+			return;
 		char*  temp = new char[totalLength + 1];
 		unsigned int blank = totalLength - mSize;
-		for(unsigned int i = 0; i < blank; ++i)
+		for (unsigned int i = 0; i < blank; ++i)
 			temp[i] = ' ';
 		int j = 0;
-		for(unsigned int i = blank; i < totalLength; ++i)
+		for (unsigned int i = blank; i < totalLength; ++i)
 			temp[i] = mString[j++];
 		temp[totalLength] = '\0';
 		delete[] mString;
@@ -211,13 +217,13 @@ namespace assignment1
 
 	void MyString::PadLeft(unsigned int totalLength, const char c)
 	{
-		if(totalLength <= mSize) return;
+		if (totalLength <= mSize) return;
 		char*        temp = new char[totalLength + 1];
 		const unsigned int blank = totalLength - mSize;
-		for(unsigned int i = 0; i < blank; ++i)
+		for (unsigned int i = 0; i < blank; ++i)
 			temp[i] = c;
 		int j = 0;
-		for(unsigned int i = blank; i < totalLength; ++i)
+		for (unsigned int i = blank; i < totalLength; ++i)
 			temp[i] = mString[j++];
 		temp[totalLength] = '\0';
 		delete[] mString;
@@ -227,11 +233,11 @@ namespace assignment1
 
 	void MyString::PadRight(unsigned int totalLength)
 	{
-		if(totalLength <= mSize) return;
+		if (totalLength <= mSize) return;
 		char* temp = new char[totalLength + 1];
-		for(unsigned int i = 0; i < mSize; ++i)
+		for (unsigned int i = 0; i < mSize; ++i)
 			temp[i] = mString[i];
-		for(unsigned int i = mSize; i < totalLength; ++i)
+		for (unsigned int i = mSize; i < totalLength; ++i)
 			temp[i] = ' ';
 		temp[totalLength] = '\0';
 		delete[] mString;
@@ -241,11 +247,11 @@ namespace assignment1
 
 	void MyString::PadRight(unsigned int totalLength, const char c)
 	{
-		if(totalLength <= mSize) return;
+		if (totalLength <= mSize) return;
 		char*        temp = new char[totalLength + 1];
-		for(unsigned int i = 0; i < mSize; ++i)
+		for (unsigned int i = 0; i < mSize; ++i)
 			temp[i] = mString[i];
-		for(unsigned int i = mSize; i < totalLength; ++i)
+		for (unsigned int i = mSize; i < totalLength; ++i)
 			temp[i] = c;
 		temp[totalLength] = '\0';
 		delete[] mString;
@@ -255,9 +261,13 @@ namespace assignment1
 
 	void MyString::Reverse()
 	{
+		if (mSize < 1)
+		{
+			return ;
+		}
 		int lh = 0;
 		int rh = static_cast<int>(mSize) - 1;
-		while(lh < rh)
+		while (lh < rh)
 		{
 			char temp = mString[lh];
 			mString[lh] = mString[rh];
@@ -275,7 +285,7 @@ namespace assignment1
 			return false;
 		if (rhs.GetLength() != GetLength())
 			return false;
-		for(unsigned int i = 0; i < mSize; ++i)
+		for (unsigned int i = 0; i < mSize; ++i)
 		{
 			if(mString[i] != rhs.mString[i])
 				return false;
@@ -287,9 +297,15 @@ namespace assignment1
 	{
 		 if (rhs == *this)
 		 	return *this;
+		if (rhs.mString[0] =='\0')
+		{
+			mSize = 0;
+			mString[0] = '\0';
+			return *this;
+		}
 		mSize = rhs.GetLength();
 		mString = new char[mSize + 1];
-		for(unsigned int i = 0; i < mSize; ++i)
+		for (unsigned int i = 0; i < mSize; ++i)
 			mString[i] = rhs.mString[i];
 		mString[mSize] = '\0';
 		return *this;
@@ -297,7 +313,7 @@ namespace assignment1
 
 	void MyString::ToLower()
 	{
-		for(unsigned int i = 0; i < mSize; ++i)
+		for (unsigned int i = 0; i < mSize; ++i)
 		{
 			if(mString[i] >= 'A' && mString[i] <= 'Z') mString[i] += 32;
 		}
@@ -305,7 +321,7 @@ namespace assignment1
 
 	void MyString::ToUpper()
 	{
-		for(unsigned int i = 0; i < mSize; ++i)
+		for (unsigned int i = 0; i < mSize; ++i)
 		{
 			if(mString[i] >= 'a' && mString[i] <= 'z') mString[i] -= 32;
 		}
