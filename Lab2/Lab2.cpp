@@ -80,7 +80,7 @@ namespace lab2
 		for (auto value : list)
 		{
 			out << "     " << std::fixed << std::internal << std::setprecision(3)
-				<< std :: setw(15) << std::showpos <<value
+				<< std :: setw(15) << std::showpos << value
 				<< std::endl;
 			if (max < value)
 				max = value;
