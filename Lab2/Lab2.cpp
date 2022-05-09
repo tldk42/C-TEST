@@ -12,8 +12,9 @@ namespace lab2
 		while (true)
 		{
 			in >> number;
-			if (in.eof()) break;
-			if (!in.fail())
+			if (in.eof())
+				break;
+			if (!in.fail() && number > 0)
 			{
 				list1.push_back(number);
 			}
@@ -36,7 +37,8 @@ namespace lab2
 		while (true)
 		{
 			in >> number;
-			if (in.eof()) break;
+			if (in.eof())
+				break;
 			if (!in.fail())
 			{
 				list1.push_back(number);
@@ -58,9 +60,9 @@ namespace lab2
 			<< std::setw(11) << "dec"
 			<< std::setw(9) << "hex"
 			<< std::endl
-			<< std::setw(12) << std::setfill('-') << '.'
-			<< std::setw(11) << '.'
-			<< std::setw(9) << '.'
+			<< std::setw(12) << std::setfill('-') << ' '
+			<< std::setw(11) << ' '
+			<< std::setw(9) << ' '
 			<< std::endl;
 		for (const auto value : list)
 		{
@@ -78,8 +80,8 @@ namespace lab2
 		for (auto value : list)
 		{
 			out << "     " << std::fixed << std::internal << std::setprecision(3)
-			<< std :: setw(15) << std::showpos <<value
-			<< std::endl;
+				<< std :: setw(15) << std::showpos <<value
+				<< std::endl;
 			if (max < value)
 				max = value;
 		}
