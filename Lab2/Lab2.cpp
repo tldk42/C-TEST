@@ -5,44 +5,36 @@ namespace lab2
 {
 	void PrintIntegers(std::istream& in, std::ostream& out)
 	{
-		std::vector<int> list1;
-		int              number = 0;
-		std::string      trash;
-		std::string      num;
-		while (true)
-		{
-			in >> number;
-			
-			if (!in.fail() && number >= 0)
-			{
-				list1.push_back(number);
-			}
-			else
-			{
-				in.clear();
-				in >> trash;
-			}
-			if (in.eof())
-				break;
-		}
-		if (!list1.empty())
-			PrintFormat(out, list1);
+		in.clear();
+		std::vector<int> numberList;
+		
+		ScanNumber(in, numberList);
+		if (!numberList.empty())
+			PrintFormat(out, numberList);
 	}
 
 	void PrintMaxFloat(std::istream& in, std::ostream& out)
 	{
 		in.clear();
-		std::vector<float> list1;
-		float              number = 0;
-		std::string        trash;
-		std::string        num;
+		std::vector<float> numberList;
+		
+		ScanNumber(in, numberList);
+		if (!numberList.empty())
+			PrintFormat(out, numberList);
+	}
+
+	void ScanNumber(std::istream& in, std::vector<int>& numberList)
+	{
+		int         number;
+		std::string trash;
+		
 		while (true)
 		{
 			in >> number;
 
 			if (!in.fail())
 			{
-				list1.push_back(number);
+				numberList.push_back(number);
 			}
 			else
 			{
@@ -52,8 +44,29 @@ namespace lab2
 			if (in.eof())
 				break;
 		}
-		if (!list1.empty())
-			PrintFormat(out, list1);
+	}
+
+	void ScanNumber(std::istream& in, std::vector<float>& numberList)
+	{
+		float         number;
+		std::string trash;
+		
+		while (true)
+		{
+			in >> number;
+
+			if (!in.fail())
+			{
+				numberList.push_back(number);
+			}
+			else
+			{
+				in.clear();
+				in >> trash;
+			}
+			if (in.eof())
+				break;
+		}
 	}
 
 	void PrintFormat(std::ostream& out, const std::vector<int> list)
@@ -63,7 +76,6 @@ namespace lab2
 			<< std::setw(11) << "dec"
 			<< std::setw(9) << "hex"
 			<< std::endl
-			//<< "------------ ---------- --------"
 			<< std::setw(13) << std::setfill('-') << ' '
 			<< std::setw(11) << ' '
 			<< std::setw(8) << '-'

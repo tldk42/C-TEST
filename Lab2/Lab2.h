@@ -8,6 +8,8 @@ namespace lab2
 	// out: 여기에 출력을 쓰세요. cout에 쓰는 게 아닙니다.
 	void PrintIntegers(std::istream& in, std::ostream& out);
 	void PrintMaxFloat(std::istream& in, std::ostream& out);
+	void ScanNumber(std::istream& in, std::vector<int>& numberList);
+	void ScanNumber(std::istream& in, std::vector<float>& numberList);
 	void PrintFormat(std::ostream& out, std::vector<int> list);
 	void PrintFormat(std::ostream& out, std::vector<float> list);
 }
