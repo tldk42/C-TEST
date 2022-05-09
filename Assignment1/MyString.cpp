@@ -1,27 +1,16 @@
 ﻿#include "MyString.h"
 
-/*
- * avoid using extra library
- * ex) cstring, string
- * programming with only while or for loop
- */
-
 namespace assignment1
 {
 	MyString::MyString(const char* s)
+		:mSize(str_len(s))
 	{
 		// loc var i is detecting parameter s's size
-		int i = 0;
-
-		while (s[i] != '\0')
-			i++;
-		mSize = i;
 		mString = new char[mSize + 1];
-		i = 0;
+		int i = 0;
 		while (s[i] != '\0')
 		{
-			mString[i] = s[i];
-			i ++;
+			mString[i] = s[i++];
 		}
 		mString[i] = '\0';
 	}
@@ -54,21 +43,17 @@ namespace assignment1
 	{
 		if (s == nullptr || s[0] == '\0')
 			return;
-		unsigned int i = 0;
-		while (s[i] != '\0')
-			i++;
+		auto i = str_len(s);
 		mSize += i;
 		char* newString = new char[mSize + 1];
 		i = 0;
 		while (mString[i] != '\0')
 		{
-			newString[i] = mString[i];
-			i++;
+			newString[i] = mString[i++];
 		}
 		for (unsigned int j = 0; i < mSize; ++i)
 		{
-			newString[i] = s[j];
-			j++;
+			newString[i] = s[j++];
 		}
 		newString[i] = '\0';
 		delete[] mString;
@@ -118,12 +103,10 @@ namespace assignment1
 		return -1;
 	}
 
-
-	// NNNEEDDD TO BE DONE
 	int MyString::LastIndexOf(const char* s)
 	{
 		if (s[0] == '\0')
-			return mSize;
+			return static_cast<int>(mSize);
 		for (int i = static_cast<int>(mSize) - 1; i >= 0; --i)
 		{
 			if (mString[i] == s[0])
@@ -146,11 +129,9 @@ namespace assignment1
 	{
 		if (s[0] == '\0')
 			return;
-		int sLen = 0;
+		const auto s_len = str_len(s);
 		int flag = 1;
-		while (s[sLen] != '\0')
-			sLen++;
-		mSize += sLen;
+		mSize += s_len;
 		char* tempStore = new char[mSize + 1];
 		int   idx1 = 0;
 		int   idx2 = 0;
@@ -184,7 +165,7 @@ namespace assignment1
 	{
 		if (i >= mSize)
 			return false;
-		char* temporary = new char[mSize];
+		const auto temporary = new char[mSize];
 		mSize -= 1;
 		for (unsigned int index = 0; index < i; ++index)
 			temporary[index] = mString[index];
@@ -201,8 +182,8 @@ namespace assignment1
 	{
 		if (totalLength <= mSize)
 			return;
-		char*  temp = new char[totalLength + 1];
-		unsigned int blank = totalLength - mSize;
+		const auto         temp = new char[totalLength + 1];
+		const unsigned int blank = totalLength - mSize;
 		for (unsigned int i = 0; i < blank; ++i)
 			temp[i] = ' ';
 		int j = 0;
@@ -218,7 +199,7 @@ namespace assignment1
 	{
 		if (totalLength <= mSize)
 			return;
-		char*        temp = new char[totalLength + 1];
+		const auto temp = new char[totalLength + 1];
 		const unsigned int blank = totalLength - mSize;
 		for (unsigned int i = 0; i < blank; ++i)
 			temp[i] = c;
@@ -235,7 +216,7 @@ namespace assignment1
 	{
 		if (totalLength <= mSize)
 			return;
-		char* temp = new char[totalLength + 1];
+		const auto temp = new char[totalLength + 1];
 		for (unsigned int i = 0; i < mSize; ++i)
 			temp[i] = mString[i];
 		for (unsigned int i = mSize; i < totalLength; ++i)
@@ -326,5 +307,13 @@ namespace assignment1
 			if (mString[i] >= 'a' && mString[i] <= 'z')
 				mString[i] -= 32;
 		}
+	}
+
+	unsigned MyString::str_len(const char* s)
+	{
+		int i = 0;
+		while (s[i] != '\0')
+			i++;
+		return i;
 	}
 }
