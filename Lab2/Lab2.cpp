@@ -12,17 +12,14 @@ namespace lab2
 		while (true)
 		{
 			in >> number;
-			if (in.eof())
-				break;
 			if (!in.fail() && number > 0)
 			{
 				list1.push_back(number);
 			}
-			else
-			{
-				in.clear();
-				in >> trash;
-			}
+			if (in.eof())
+				break;
+			in.clear();
+			in >> trash;
 		}
 		if (!list1.empty())
 			PrintFormat(out, list1);
@@ -37,17 +34,14 @@ namespace lab2
 		while (true)
 		{
 			in >> number;
-			if (in.eof())
-				break;
-			if (!in.fail())
+			if (!in.fail() && number > 0)
 			{
 				list1.push_back(number);
 			}
-			else
-			{
-				in.clear();
-				in >> trash;
-			}
+			if (in.eof())
+				break;
+			in.clear();
+			in >> trash;
 		}
 		if (!list1.empty())
 			PrintFormat(out, list1);
@@ -62,7 +56,7 @@ namespace lab2
 			<< std::endl
 			<< std::setw(13) << std::setfill('-') << ' '
 			<< std::setw(11) << ' '
-			<< std::setw(9) << ' '
+			<< std::setw(8) << ' '
 			<< std::endl;
 		for (const auto value : list)
 		{
@@ -77,7 +71,7 @@ namespace lab2
 	void PrintFormat(std::ostream& out, const std::vector<float> list)
 	{
 		float max = list.front();
-		for (auto value : list)
+		for (const auto value : list)
 		{
 			out << "     " << std::fixed << std::internal << std::setprecision(3)
 				<< std :: setw(15) << std::showpos << value
