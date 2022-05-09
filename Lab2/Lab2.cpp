@@ -63,9 +63,10 @@ namespace lab2
 			<< std::setw(11) << "dec"
 			<< std::setw(9) << "hex"
 			<< std::endl
+			//<< "------------ ---------- --------"
 			<< std::setw(13) << std::setfill('-') << ' '
 			<< std::setw(11) << ' '
-			<< std::setw(9) << ' '
+			<< std::setw(8) << '-'
 			<< std::endl;
 		for (const auto value : list)
 		{
