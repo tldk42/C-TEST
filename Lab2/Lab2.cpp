@@ -31,13 +31,16 @@ namespace lab2
 
 	void PrintMaxFloat(std::istream& in, std::ostream& out)
 	{
+		in.clear();
 		std::vector<float> list1;
 		float              number = 0;
 		std::string        trash;
 		std::string        num;
 		while (true)
 		{
-			if (!in.fail() && number >= 0)
+			in >> number;
+
+			if (!in.fail())
 			{
 				list1.push_back(number);
 			}
