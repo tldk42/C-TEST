@@ -1,6 +1,4 @@
 ﻿#include "TimeSheet.h"
-
-#include <iostream>
 #include <math.h>
 
 namespace lab3
@@ -111,11 +109,5 @@ namespace lab3
 	{
 		return mName;
 	}
-
-	void TimeSheet::PrintTimeStamp() const
-	{
-		for (unsigned int i = 0; i < mMaxEntry; ++i)
-			std::cout << mTimeStamp[i] << " ";
-		std::cout << std::endl;
-	}
+	
 }
