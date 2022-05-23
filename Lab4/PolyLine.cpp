@@ -5,12 +5,14 @@
 namespace lab4
 {
 	PolyLine::PolyLine()
-		: mSize(0)
+		: mPoints(new const Point*[10]),
+		  mSize(0)
 	{
 	}
 
 	PolyLine::PolyLine(const PolyLine& other)
-		: mSize(other.mSize)
+		: mPoints(new const Point*[10]),
+		  mSize(other.mSize)
 	{
 		for (unsigned i = 0; i < mSize; ++i)
 		{
@@ -22,15 +24,14 @@ namespace lab4
 	PolyLine::~PolyLine()
 	{
 		for (unsigned i = 0; i < mSize; ++i)
-		{
 			delete mPoints[i];
-		}
+		delete[] mPoints;
 	}
 
 	PolyLine& PolyLine::operator=(const PolyLine& other)
 	{
-		// if (&mPoints == &other.mPoints)
-		// 	return *this;
+		if (mPoints == other.mPoints)
+			return *this;
 		mSize = other.mSize;
 		for (unsigned i = 0; i < mSize; ++i)
 		{
@@ -44,6 +45,7 @@ namespace lab4
 	{
 		if (mSize >= 10)
 			return false;
+
 		mPoints[mSize++] = new Point(x, y);
 		return true;
 	}
@@ -52,7 +54,7 @@ namespace lab4
 	{
 		if (mSize >= 10 || point == nullptr)
 			return false;
-		mPoints[mSize++] = new Point(point->GetX(), point->GetY());
+		mPoints[mSize++] = point;
 		return true;
 	}
 
@@ -76,7 +78,6 @@ namespace lab4
 	{
 		if (mSize < 1)
 			return false;
-
 		float minX = mPoints[0]->GetX();
 		float minY = mPoints[0]->GetY();
 		float maxX = mPoints[0]->GetX();
@@ -94,7 +95,7 @@ namespace lab4
 		}
 		*outMin = Point(minX, minY);
 		*outMax = Point(maxX, maxY);
-		// if (maxX - minX == 0.f || maxY - minY == 0.f)
+		// if (minX == maxX || minY == maxY)
 		// 	return false;
 		return true;
 	}
