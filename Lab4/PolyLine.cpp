@@ -4,13 +4,13 @@
 
 namespace lab4
 {
-	PolyLine::PolyLine ()
+	PolyLine::PolyLine()
 		: mPoints(new Point[10]),
 		  mSize(0)
 	{
 	}
 
-	PolyLine::PolyLine (const PolyLine& other)
+	PolyLine::PolyLine(const PolyLine& other)
 		: mPoints(new Point[10]),
 		  mSize(other.mSize)
 	{
@@ -20,12 +20,12 @@ namespace lab4
 		}
 	}
 
-	PolyLine::~PolyLine ()
+	PolyLine::~PolyLine()
 	{
 		delete[] mPoints;
 	}
 
-	PolyLine& PolyLine::operator= (const PolyLine& other)
+	PolyLine& PolyLine::operator=(const PolyLine& other)
 	{
 		if (mPoints == other.mPoints)
 			return *this;
@@ -37,7 +37,7 @@ namespace lab4
 		return *this;
 	}
 
-	bool PolyLine::AddPoint (float x, float y)
+	bool PolyLine::AddPoint(float x, float y)
 	{
 		if (mSize >= 10)
 			return false;
@@ -45,7 +45,7 @@ namespace lab4
 		return true;
 	}
 
-	bool PolyLine::AddPoint (const Point* point)
+	bool PolyLine::AddPoint(const Point* point)
 	{
 		if (mSize >= 10 || point == nullptr)
 			return false;
@@ -53,7 +53,7 @@ namespace lab4
 		return true;
 	}
 
-	bool PolyLine::RemovePoint (unsigned int i)
+	bool PolyLine::RemovePoint(unsigned int i)
 	{
 		if (i >= mSize)
 			return false;
@@ -68,7 +68,7 @@ namespace lab4
 		return true;
 	}
 
-	bool PolyLine::TryGetMinBoundingRectangle (Point* outMin, Point* outMax) const
+	bool PolyLine::TryGetMinBoundingRectangle(Point* outMin, Point* outMax) const
 	{
 		if (mSize < 2)
 			return false;
@@ -94,7 +94,7 @@ namespace lab4
 		return true;
 	}
 
-	const Point* PolyLine::operator[] (unsigned int i) const
+	const Point* PolyLine::operator[](unsigned int i) const
 	{
 		if (i >= mSize)
 			return nullptr;

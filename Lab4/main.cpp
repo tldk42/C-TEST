@@ -5,7 +5,6 @@
 using namespace lab4;
 
 
-int main ()
+int main()
 {
-	
 }
