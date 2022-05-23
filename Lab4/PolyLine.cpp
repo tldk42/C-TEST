@@ -14,23 +14,28 @@ namespace lab4
 	{
 		for (unsigned i = 0; i < mSize; ++i)
 		{
-			mPoints[i] = other.mPoints[i];
+			const auto temp = new Point(other.mPoints[i]->GetX(), other.mPoints[i]->GetY());
+			mPoints[i] = temp;
 		}
 	}
 
 	PolyLine::~PolyLine()
 	{
-		delete[] mPoints;
+		for (unsigned i = 0; i < mSize; ++i)
+		{
+			delete mPoints[i];
+		}
 	}
 
 	PolyLine& PolyLine::operator=(const PolyLine& other)
 	{
-		if (mPoints == other.mPoints)
-			return *this;
+		// if (&mPoints == &other.mPoints)
+		// 	return *this;
 		mSize = other.mSize;
 		for (unsigned i = 0; i < mSize; ++i)
 		{
-			mPoints[i] = other.mPoints[i];
+			const auto temp = new Point(other.mPoints[i]->GetX(), other.mPoints[i]->GetY());
+			mPoints[i] = temp;
 		}
 		return *this;
 	}
@@ -69,12 +74,9 @@ namespace lab4
 
 	bool PolyLine::TryGetMinBoundingRectangle(Point* outMin, Point* outMax) const
 	{
-		if (mSize < 2)
-		{
-			outMax = nullptr;
-			outMin = nullptr;
+		if (mSize < 1)
 			return false;
-		}
+
 		float minX = mPoints[0]->GetX();
 		float minY = mPoints[0]->GetY();
 		float maxX = mPoints[0]->GetX();
@@ -92,8 +94,8 @@ namespace lab4
 		}
 		*outMin = Point(minX, minY);
 		*outMax = Point(maxX, maxY);
-		if (minX == maxX || minY == maxY)
-			return false;
+		// if (maxX - minX == 0.f || maxY - minY == 0.f)
+		// 	return false;
 		return true;
 	}
 
