@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+
 namespace lab2
 {
 	// in: 여기서 사용자 입력을 읽으세요. cin에서 읽는 게 아닙니다.
@@ -12,4 +13,6 @@ namespace lab2
 	void ScanNumber(std::istream& in, std::vector<float>& numberList);
 	void PrintFormat(std::ostream& out, std::vector<int> list);
 	void PrintFormat(std::ostream& out, std::vector<float> list);
+
+	void PrintText(std::fstream& file, std::ostream& out);
 }

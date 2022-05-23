@@ -5,7 +5,6 @@ namespace assignment1
 	MyString::MyString(const char* s)
 		:mSize(str_len(s))
 	{
-		// loc var i is detecting parameter s's size
 		mString = new char[mSize + 1];
 		int i = 0;
 		while (s[i] != '\0')
@@ -60,11 +59,10 @@ namespace assignment1
 		mString = newString;
 	}
 
-	// don't destroy
 	MyString MyString::operator+(const MyString& other) const
 	{
-		size_t otherLen = other.GetLength();
-		size_t totalLen = mSize + otherLen;
+		const size_t otherLen = other.GetLength();
+		const size_t totalLen = mSize + otherLen;
 		if (otherLen < 1)
 			return *this;
 		// alloc new mem to heap
@@ -86,7 +84,6 @@ namespace assignment1
 			return 0;
 		for (unsigned int i = 0; i < mSize; ++i)
 		{
-			// when mString encounter s's first character jump else
 			if (mString[i] == s[0])
 			{
 				int i2 = 0;

@@ -1,5 +1,7 @@
 ﻿#include <iomanip>
 #include "Lab2.h"
+#include <fstream>
+#include <string>
 
 namespace lab2
 {
@@ -104,5 +106,23 @@ namespace lab2
 		out << "max: " << std::fixed << std::internal << std::setprecision(3)
 			<< std :: setw(15) << std::showpos << max
 			<< std::endl;
+	}
+
+	void PrintText(std::fstream& file, std::ostream& out)
+	{
+		file.seekg(0);
+
+		std::string line;
+		while (true)
+		{
+			std::getline(file, line);
+			out << line << std::endl;
+			
+			if (file.eof())
+			{
+				file.clear();
+				break;
+			}
+		}
 	}
 }

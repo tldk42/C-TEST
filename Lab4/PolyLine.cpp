@@ -5,14 +5,12 @@
 namespace lab4
 {
 	PolyLine::PolyLine()
-		: mPoints(new Point[10]),
-		  mSize(0)
+		: mSize(0)
 	{
 	}
 
 	PolyLine::PolyLine(const PolyLine& other)
-		: mPoints(new Point[10]),
-		  mSize(other.mSize)
+		: mSize(other.mSize)
 	{
 		for (unsigned i = 0; i < mSize; ++i)
 		{
@@ -41,7 +39,7 @@ namespace lab4
 	{
 		if (mSize >= 10)
 			return false;
-		mPoints[mSize++] = Point(x, y);
+		mPoints[mSize++] = new Point(x, y);
 		return true;
 	}
 
@@ -49,7 +47,7 @@ namespace lab4
 	{
 		if (mSize >= 10 || point == nullptr)
 			return false;
-		mPoints[mSize++] = *point;
+		mPoints[mSize++] = new Point(point->GetX(), point->GetY());
 		return true;
 	}
 
@@ -58,6 +56,7 @@ namespace lab4
 		if (i >= mSize)
 			return false;
 
+		delete mPoints[i];
 		for (unsigned idx = i; idx < mSize; ++idx)
 		{
 			if (i == 9)
@@ -71,21 +70,25 @@ namespace lab4
 	bool PolyLine::TryGetMinBoundingRectangle(Point* outMin, Point* outMax) const
 	{
 		if (mSize < 2)
+		{
+			outMax = nullptr;
+			outMin = nullptr;
 			return false;
-		float minX = mPoints[0].GetX();
-		float minY = mPoints[0].GetY();
-		float maxX = mPoints[0].GetX();
-		float maxY = mPoints[0].GetY();
+		}
+		float minX = mPoints[0]->GetX();
+		float minY = mPoints[0]->GetY();
+		float maxX = mPoints[0]->GetX();
+		float maxY = mPoints[0]->GetY();
 		for (unsigned i = 1; i < mSize; ++i)
 		{
-			if (minX > mPoints[i].GetX())
-				minX = mPoints[i].GetX();
-			if (minY > mPoints[i].GetY())
-				minY = mPoints[i].GetY();
-			if (maxX < mPoints[i].GetX())
-				maxX = mPoints[i].GetX();
-			if (maxY < mPoints[i].GetY())
-				maxY = mPoints[i].GetY();
+			if (minX > mPoints[i]->GetX())
+				minX = mPoints[i]->GetX();
+			if (minY > mPoints[i]->GetY())
+				minY = mPoints[i]->GetY();
+			if (maxX < mPoints[i]->GetX())
+				maxX = mPoints[i]->GetX();
+			if (maxY < mPoints[i]->GetY())
+				maxY = mPoints[i]->GetY();
 		}
 		*outMin = Point(minX, minY);
 		*outMax = Point(maxX, maxY);
@@ -98,6 +101,6 @@ namespace lab4
 	{
 		if (i >= mSize)
 			return nullptr;
-		return new Point(mPoints[i].GetX(), mPoints[i].GetY());
+		return new Point(mPoints[i]->GetX(), mPoints[i]->GetY());
 	}
 }
