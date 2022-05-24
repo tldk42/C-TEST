@@ -22,7 +22,7 @@ namespace lab4
 	PolyLine::~PolyLine()
 	{
 		for (unsigned i = 0; i < mSize; ++i)
-			delete *(mPoint+i);
+			delete *(mPoint + i);
 		delete[] mPoint;
 	}
 
@@ -31,7 +31,7 @@ namespace lab4
 		if (other.mPoint == mPoint)
 			return *this;
 		for (unsigned i = 0; i < mSize; ++i)
-			delete *(mPoint+i);
+			delete *(mPoint + i);
 		delete[] mPoint;
 		mSize = other.mSize;
 		mPoint = new const Point* [mSize];
@@ -83,6 +83,7 @@ namespace lab4
 			if (mPoint[idx] != nullptr)
 				tempPoints[idx2++] = mPoint[idx];
 		}
+		delete[] mPoint;
 		mPoint = tempPoints;
 		return true;
 	}
