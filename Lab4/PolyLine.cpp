@@ -22,26 +22,24 @@ namespace lab4
 	PolyLine::~PolyLine()
 	{
 		for (unsigned i = 0; i < mSize; ++i)
-			delete mPoint[i];
-		delete mPoint;
+			delete *(mPoint+i);
+		delete[] mPoint;
 	}
 
 	PolyLine& PolyLine::operator=(const PolyLine& other)
 	{
+		if (other.mPoint == mPoint)
+			return *this;
+		for (unsigned i = 0; i < mSize; ++i)
+			delete *(mPoint+i);
+		delete[] mPoint;
 		mSize = other.mSize;
 		mPoint = new const Point* [mSize];
 		for (unsigned i = 0; i < mSize; ++i)
 			mPoint[i] = new Point(other.mPoint[i]->GetX(), other.mPoint[i]->GetY());
 		return *this;
 	}
-
-	/*
-	 *점이 PolyLine에 추가되면 true를 반환합니다.
-	 *추가된 점의 라이프사이클(수명)은 PolyLine이 관리하지만,
-	 *PolyLine 개체를 소멸시키거나 RemovePoint()같은 메서드를 호출하여 점을 소멸시키지 않는 한
-	 *여전히 클래스 밖에서도 점을 가리키는 포인터를 사용할 수 있습니다.
-	 *만약 PolyLine에 점을 추가할 수 없었다면 false를 반환합니다.
-	 */
+	
 	bool PolyLine::AddPoint(float x, float y)
 	{
 		if (mSize >= 10)

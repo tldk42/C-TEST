@@ -94,20 +94,20 @@ void PolyLineAddPointTest()
 	assert(pl4->AddPoint(p3) == true);
 
 	pl3.AddPoint(3.1, 123);
-	// PolyLine* pl5(pl4);
-	// assert(pl5->AddPoint(11.11f, 22.22f) == true);
-	// assert(pl5->AddPoint(11.11f, 22.22f) == true);
-	// assert(pl5->AddPoint(11.11f, 22.22f) == true);
-	// assert(pl5->AddPoint(11.11f, 22.22f) == true);
-	// assert(pl5->AddPoint(11.11f, 22.22f) == false);
-	// assert(pl5->AddPoint(11.11f, 22.22f) == false);
-	//
-	// delete pl4;
-	//
-	// PolyLine pl6 = pl3;
-	// assert(pl6.AddPoint(11.11f, 22.22f) == true);
-	// assert(pl6.AddPoint(11.11f, 22.22f) == true);
-	// assert(pl6.AddPoint(new Point(55.5f, 66.6f)) == true);
+	PolyLine* pl5(pl4);
+	assert(pl5->AddPoint(11.11f, 22.22f) == true);
+	assert(pl5->AddPoint(11.11f, 22.22f) == true);
+	assert(pl5->AddPoint(11.11f, 22.22f) == true);
+	assert(pl5->AddPoint(11.11f, 22.22f) == true);
+	assert(pl5->AddPoint(11.11f, 22.22f) == false);
+	assert(pl5->AddPoint(11.11f, 22.22f) == false);
+	
+	delete pl4;
+	
+	PolyLine pl6 = pl3;
+	assert(pl6.AddPoint(11.11f, 22.22f) == true);
+	assert(pl6.AddPoint(11.11f, 22.22f) == true);
+	assert(pl6.AddPoint(new Point(55.5f, 66.6f)) == true);
 
 	cout << "- PolyLine::AddPoint() - END -" << endl;
 }
@@ -216,10 +216,10 @@ void PolyLineOperateIndexTest()
 
 void TestCaseMain()
 {
-	PointOperatePlusTest();
-	PointOperateMinusTest();
-	PointOperateMultiplyTest();
-	PointDotProductTest();
+// 	PointOperatePlusTest();
+// 	PointOperateMinusTest();
+// 	PointOperateMultiplyTest();
+// 	PointDotProductTest();
 
 	PolyLineAddPointTest();
 	PolyLineRemovePointTest();
@@ -230,7 +230,7 @@ void TestCaseMain()
 
 int main()
 {
-	//TestCaseMain();
+	
 	return 0;
 
 }
