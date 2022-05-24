@@ -5,48 +5,55 @@
 namespace lab4
 {
 	PolyLine::PolyLine()
-		: mPoints(new const Point*[10]),
+		: mPoint(nullptr),
 		  mSize(0)
 	{
 	}
 
 	PolyLine::PolyLine(const PolyLine& other)
-		: mPoints(new const Point*[10]),
+		: mPoint(),
 		  mSize(other.mSize)
 	{
+		mPoint = new const Point* [mSize];
 		for (unsigned i = 0; i < mSize; ++i)
-		{
-			const auto temp = new Point(other.mPoints[i]->GetX(), other.mPoints[i]->GetY());
-			mPoints[i] = temp;
-		}
+			mPoint[i] = new Point(other.mPoint[i]->GetX(), other.mPoint[i]->GetY());
 	}
 
 	PolyLine::~PolyLine()
 	{
 		for (unsigned i = 0; i < mSize; ++i)
-			delete mPoints[i];
-		delete[] mPoints;
+			delete mPoint[i];
+		delete mPoint;
 	}
 
 	PolyLine& PolyLine::operator=(const PolyLine& other)
 	{
-		if (mPoints == other.mPoints)
-			return *this;
 		mSize = other.mSize;
+		mPoint = new const Point* [mSize];
 		for (unsigned i = 0; i < mSize; ++i)
-		{
-			const auto temp = new Point(other.mPoints[i]->GetX(), other.mPoints[i]->GetY());
-			mPoints[i] = temp;
-		}
+			mPoint[i] = new Point(other.mPoint[i]->GetX(), other.mPoint[i]->GetY());
 		return *this;
 	}
 
+	/*
+	 *점이 PolyLine에 추가되면 true를 반환합니다.
+	 *추가된 점의 라이프사이클(수명)은 PolyLine이 관리하지만,
+	 *PolyLine 개체를 소멸시키거나 RemovePoint()같은 메서드를 호출하여 점을 소멸시키지 않는 한
+	 *여전히 클래스 밖에서도 점을 가리키는 포인터를 사용할 수 있습니다.
+	 *만약 PolyLine에 점을 추가할 수 없었다면 false를 반환합니다.
+	 */
 	bool PolyLine::AddPoint(float x, float y)
 	{
 		if (mSize >= 10)
 			return false;
-
-		mPoints[mSize++] = new Point(x, y);
+		const auto tempPoints = new const Point* [mSize + 1];
+		for (unsigned i = 0; i < mSize; ++i)
+		{
+			tempPoints[i] = mPoint[i];
+		}
+		tempPoints[mSize++] = new const Point(x, y);
+		delete[] mPoint;
+		mPoint = tempPoints;
 		return true;
 	}
 
@@ -54,7 +61,14 @@ namespace lab4
 	{
 		if (mSize >= 10 || point == nullptr)
 			return false;
-		mPoints[mSize++] = point;
+		const auto tempPoints = new const Point* [mSize + 1];
+		for (unsigned i = 0; i < mSize; ++i)
+		{
+			tempPoints[i] = mPoint[i];
+		}
+		tempPoints[mSize++] = point;
+		delete[] mPoint;
+		mPoint = tempPoints;
 		return true;
 	}
 
@@ -62,41 +76,38 @@ namespace lab4
 	{
 		if (i >= mSize)
 			return false;
-
-		delete mPoints[i];
-		for (unsigned idx = i; idx < mSize; ++idx)
+		delete mPoint[i];
+		mPoint[i] = nullptr;
+		const auto tempPoints = new const Point* [--mSize];
+		unsigned   idx2 = 0;
+		for (unsigned idx = 0; idx <= mSize; ++idx)
 		{
-			if (i == 9)
-				break;
-			mPoints[idx] = mPoints[idx + 1];
+			if (mPoint[idx] != nullptr)
+				tempPoints[idx2++] = mPoint[idx];
 		}
-		mSize --;
+		mPoint = tempPoints;
 		return true;
 	}
 
 	bool PolyLine::TryGetMinBoundingRectangle(Point* outMin, Point* outMax) const
 	{
-		if (mSize < 1)
+		if (mSize == 0)
 			return false;
-		float minX = mPoints[0]->GetX();
-		float minY = mPoints[0]->GetY();
-		float maxX = mPoints[0]->GetX();
-		float maxY = mPoints[0]->GetY();
+
+		float minX = mPoint[0]->GetX();
+		float minY = mPoint[0]->GetY();
+		float maxX = mPoint[0]->GetX();
+		float maxY = mPoint[0]->GetY();
+
 		for (unsigned i = 1; i < mSize; ++i)
 		{
-			if (minX > mPoints[i]->GetX())
-				minX = mPoints[i]->GetX();
-			if (minY > mPoints[i]->GetY())
-				minY = mPoints[i]->GetY();
-			if (maxX < mPoints[i]->GetX())
-				maxX = mPoints[i]->GetX();
-			if (maxY < mPoints[i]->GetY())
-				maxY = mPoints[i]->GetY();
+			minX = fmin(minX, mPoint[i]->GetX());
+			minY = fmin(minY, mPoint[i]->GetY());
+			maxX = fmax(maxX, mPoint[i]->GetX());
+			maxY = fmax(maxY, mPoint[i]->GetY());
 		}
 		*outMin = Point(minX, minY);
 		*outMax = Point(maxX, maxY);
-		// if (minX == maxX || minY == maxY)
-		// 	return false;
 		return true;
 	}
 
@@ -104,6 +115,6 @@ namespace lab4
 	{
 		if (i >= mSize)
 			return nullptr;
-		return new Point(mPoints[i]->GetX(), mPoints[i]->GetY());
+		return mPoint[i];
 	}
 }

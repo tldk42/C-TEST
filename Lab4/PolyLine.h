@@ -20,7 +20,7 @@ namespace lab4
 		const Point* operator[](unsigned int i) const;
 
 	private:
-		const Point** mPoints;
-		unsigned int  mSize;
+		const Point** mPoint;
+		unsigned      mSize;
 	};
 }
