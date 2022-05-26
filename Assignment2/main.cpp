@@ -14,6 +14,14 @@ using namespace std;
 
 int main()
 {
+	Boat* b = new Boat(2);
+	b->AddPassenger(new Person("Jacob", 90));
+	DeusExMachina* d = DeusExMachina::GetInstance();
+	//d->AddVehicle(b);
+
+	d->Travel();
+	auto x = d->GetFurthestTravelled();
+	auto k = x->GetDistance();
 	return 0;
 }
 

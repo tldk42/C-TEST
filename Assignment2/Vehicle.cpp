@@ -16,7 +16,9 @@ namespace assignment2
 		  mPassengerCount(other.mPassengerCount),
 		  mDistance(0),
 		  mTraveledTime(0),
-		  mPassengers(new const Person* [mPassengerCount])
+		  mPassengers(new const Person*[mPassengerCount]),
+		  mInterval(other.mInterval),
+		  mActive(other.mActive)
 	{
 		for (unsigned i = 0; i < mPassengerCount; ++i)
 		{
@@ -124,5 +126,14 @@ namespace assignment2
 		if (mPassengerCount <= i)
 			return nullptr;
 		return mPassengers[i];
+	}
+
+	unsigned Vehicle::GetTotalWeight() const
+	{
+		unsigned totalWeight = 0;
+
+		for (unsigned i = 0; i < mPassengerCount; ++i)
+			totalWeight += mPassengers[i]->GetWeight();
+		return totalWeight;
 	}
 }

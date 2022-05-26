@@ -11,6 +11,8 @@ namespace assignment2
 
 	void DeusExMachina::Travel() const
 	{
+		if (mSize == 0)
+			return;
 		for (unsigned i = 0; i < mSize; ++i)
 		{
 			mVehicles[i]->Transform(mVehicles[i]->GetMaxSpeed());
@@ -57,20 +59,20 @@ namespace assignment2
 		if (mSize == 0)
 			return nullptr;
 
-		unsigned       max = 0;
-		const Vehicle* vehicle = nullptr;
+		unsigned max = 0;
+		unsigned maxIndex = 0;
 		for (unsigned i = 0; i < mSize; ++i)
 		{
 			const auto value = static_cast<unsigned>(fmax(mVehicles[i]->GetDistance(), max));
 			if (value > max)
 			{
 				max = value;
-				vehicle = mVehicles[i];
+				maxIndex = i;
 			}
 		}
 		if (max == 0)
 			return nullptr;
 
-		return vehicle;
+		return mVehicles[maxIndex];
 	}
 }

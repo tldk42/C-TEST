@@ -28,8 +28,8 @@ namespace assignment2
 
 	private:
 		const Trailer* mTrailer;
-		bool bTrailerConnected;
+		bool mTrailerConnected;
 
-		void Toggle();
+		void Switch();
 	};
 }

@@ -5,7 +5,7 @@
 namespace assignment2
 {
 	Boat::Boat(unsigned int maxPassengersCount)
-		:Vehicle(maxPassengersCount)
+		: Vehicle(maxPassengersCount)
 	{
 		mInterval = 3;
 		mActive = 2;
@@ -17,8 +17,7 @@ namespace assignment2
 
 	unsigned Boat::GetSailSpeed() const
 	{
-		const double speed = fmax(800 - (10 * GetTotalWeight()), 20);
-		return static_cast<unsigned>(round(speed));
+		return static_cast<unsigned>(round(fmax(800.f - (10 * GetTotalWeight()), 20)));
 	}
 
 	unsigned Boat::GetMaxSpeed() const
@@ -43,7 +42,7 @@ namespace assignment2
 		}
 
 		/// 2. 보트 승객
-		for (unsigned i = 0; i <boatCount; ++i)
+		for (unsigned i = 0; i < boatCount; ++i)
 		{
 			const Person* passenger = GetPassenger(0);
 			bp.AddPassenger(passenger);

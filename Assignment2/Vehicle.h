@@ -21,7 +21,7 @@ namespace assignment2
 		unsigned int  GetPassengersCount() const;
 		unsigned int  GetMaxPassengersCount() const;
 
-		inline unsigned GetTotalWeight() const;
+		unsigned GetTotalWeight() const;
 		inline unsigned GetDistance() const;
 		void            Migrate(unsigned i);
 
@@ -41,13 +41,5 @@ namespace assignment2
 	{
 		return mDistance;
 	}
-
-	inline unsigned Vehicle::GetTotalWeight() const
-	{
-		unsigned totalWeight = 0;
-
-		for (unsigned i = 0; i < mPassengerCount; ++i)
-			totalWeight += mPassengers[i]->GetWeight();
-		return totalWeight;
-	}
+	
 }

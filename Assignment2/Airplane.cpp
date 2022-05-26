@@ -24,14 +24,12 @@ namespace assignment2
 
 	unsigned Airplane::GetDriveSpeed() const
 	{
-		const double speed = 200 * exp((800.0 - GetTotalWeight()) / 500.0);
-		return static_cast<unsigned>(round(speed));
+		return static_cast<unsigned>(round(200 * exp((800.0 - GetTotalWeight()) / 500.0)));
 	}
 
 	unsigned Airplane::GetFlySpeed() const
 	{
-		const double speed = 4 * exp((400.0 - GetTotalWeight()) / 70.0);
-		return static_cast<unsigned>(round(speed));
+		return static_cast<unsigned>(round(4 * exp((400.0 - GetTotalWeight()) / 70.0)));
 	}
 
 	Boatplane Airplane::operator+(Boat& boat)

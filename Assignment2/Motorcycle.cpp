@@ -15,8 +15,7 @@ namespace assignment2
 
 	unsigned Motorcycle::GetDriveSpeed() const
 	{
-		const double speed = fmax(-pow(GetTotalWeight() / 15, 3) + (2 * GetTotalWeight() + 400), 0);
-		return static_cast<unsigned>(round(speed));
+		return static_cast<unsigned>(round(fmax(-pow(GetTotalWeight() / 15, 3) + (2 * GetTotalWeight() + 400), 0)));
 	}
 
 	unsigned Motorcycle::GetMaxSpeed() const
