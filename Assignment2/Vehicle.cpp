@@ -15,10 +15,10 @@ namespace assignment2
 		  mPassengerCount(other.mPassengerCount),
 		  mDistance(0),
 		  mTraveledTime(0),
-		  mPassengers(new const Person* [mPassengerCount]),
 		  mInterval(other.mInterval),
 		  mActive(other.mActive)
 	{
+		mPassengers = new const Person* [mPassengerCount];
 		for (unsigned i = 0; i < mPassengerCount; ++i)
 		{
 			mPassengers[i] = new Person(other.mPassengers[i]->GetName().c_str(), other.mPassengers[i]->GetWeight());
@@ -109,6 +109,9 @@ namespace assignment2
 
 	void Vehicle::Migrate()
 	{
+		for (unsigned i = 0; i < mPassengerCount; ++i)
+			mPassengers = nullptr;
+		mPassengerCount = 0;
 		delete[] mPassengers;
 		mPassengers = nullptr;
 	}

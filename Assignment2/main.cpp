@@ -13,30 +13,26 @@ using namespace std;
 
 
 int main()
-{Person* p = new Person("Bob", 85);
-	Person* p2 = new Person("James", 75);
-	Person* p3 = new Person("Tina", 52);
+{
+	DeusExMachina* d = DeusExMachina::GetInstance();
+	auto x = d->GetFurthestTravelled();
 
-	Person* p4 = new Person("Peter", 78);
-	Person* p5 = new Person("Jane", 48);
-	Person* p6 = new Person("Steve", 88);
+	d->AddVehicle(new Motorcycle);
+	d->AddVehicle(new Boat(4));
+	d->AddVehicle(new UBoat);
+	d->AddVehicle(new Sedan);
 
-	Airplane a(5);
-	a.AddPassenger(p);
-	a.AddPassenger(p2);
-	a.AddPassenger(p3);
+	 x = d->GetFurthestTravelled();
+	x= d->GetFurthestTravelled();
+	
+	d->Travel();
 
-	Boat b(5);
-	b.AddPassenger(p4);
-	b.AddPassenger(p5);
-	b.AddPassenger(p6);
+	x = d->GetFurthestTravelled();
 
-	Boatplane bp = a + b; // Airplane + Boat
-	bp.GetPassengersCount(); // 6을 반환
-	bp.GetMaxPassengersCount(); // 10을 반환
-
-	a.GetPassengersCount(); // 0을 반환
-	b.GetPassengersCount(); // 0을 반환
+	d->Travel();
+	x = d->GetFurthestTravelled();
+	d->Travel();
+	x = d->GetFurthestTravelled();
 }
 
 

@@ -36,15 +36,13 @@ namespace assignment2
 		/// 1. 비행기 승객부터
 		for (unsigned i = 0; i < airCount; ++i)
 		{
-			const Person* passenger = plane.GetPassenger(0);
-			bp.AddPassenger(passenger);
+			bp.AddPassenger(plane.GetPassenger(i));
 		}
 
 		/// 2. 보트 승객
 		for (unsigned i = 0; i < boatCount; ++i)
 		{
-			const Person* passenger = GetPassenger(0);
-			bp.AddPassenger(passenger);
+			bp.AddPassenger(GetPassenger(i));
 		}
 		plane.Migrate();
 		Migrate();
