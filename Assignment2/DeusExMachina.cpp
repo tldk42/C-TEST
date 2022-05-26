@@ -59,18 +59,21 @@ namespace assignment2
 		if (mSize == 0)
 			return nullptr;
 
-		unsigned max = 0;
+		double max = 0.0;
 		unsigned maxIndex = 0;
 		for (unsigned i = 0; i < mSize; ++i)
 		{
-			const auto value = static_cast<unsigned>(fmax(mVehicles[i]->GetDistance(), max));
-			if (value > max)
+			if (mVehicles[i]->GetDistance() > 0)
 			{
-				max = value;
-				maxIndex = i;
+				const auto value = (fmax(mVehicles[i]->GetDistance(), max));
+				if (value > max)
+				{
+					max = value;
+					maxIndex = i;
+				}
 			}
 		}
-		if (max == 0)
+		if (max == 0.0)
 			return nullptr;
 
 		return mVehicles[maxIndex];

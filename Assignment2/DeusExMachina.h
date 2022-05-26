@@ -21,8 +21,6 @@ namespace assignment2
 	private:
 		DeusExMachina() = default;
 		//~DeusExMachina() = default;
-
-	private:
 		unsigned  mSize = 0;
 		Vehicle** mVehicles = nullptr;
 	};

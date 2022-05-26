@@ -23,7 +23,7 @@ namespace assignment2
 
 		unsigned GetTotalWeight() const;
 		inline unsigned GetDistance() const;
-		void            Migrate(unsigned i);
+		void            Migrate();
 
 	private:
 		unsigned       mCapacity;

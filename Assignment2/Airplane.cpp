@@ -14,9 +14,7 @@ namespace assignment2
 	Airplane::~Airplane()
 	{
 	}
-
 	
-
 	unsigned Airplane::GetMaxSpeed() const
 	{
 		return GetDriveSpeed() > GetFlySpeed() ? GetDriveSpeed() : GetFlySpeed();
@@ -38,24 +36,23 @@ namespace assignment2
 		const unsigned boatCount = boat.GetPassengersCount();
 
 		Boatplane bp(GetMaxPassengersCount() + boat.GetMaxPassengersCount());
-
+		
 		/// 승객을 옮겨줄 것
 		/// 1. 비행기 승객부터
 		for (unsigned i = 0; i < airCount; ++i)
 		{
-			const Person* passenger = GetPassenger(0);
-			bp.AddPassenger(passenger);
-			Migrate(0);
+			bp.AddPassenger(GetPassenger(i));
 		}
-
+		
 		/// 2. 보트 승객
 		for (unsigned i = 0; i < boatCount; ++i)
 		{
-			const Person* passenger = boat.GetPassenger(0);
-			bp.AddPassenger(passenger);
-			boat.Migrate(0);
+			bp.AddPassenger(boat.GetPassenger(i));
 		}
 
-		return bp;
+		Migrate();
+		boat.Migrate();
+
+		return Boatplane(bp);
 	}
 }

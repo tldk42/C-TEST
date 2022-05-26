@@ -13,8 +13,10 @@ namespace assignment2
 
 		// 500 * log((x + 150)/150) + 30
 		unsigned GetDiveSpeed() const override;
+		
 		// MAX((550 - x/10), 200)
 		unsigned GetSailSpeed() const override;
+		
 		unsigned GetMaxSpeed() const override;
 	};
 }

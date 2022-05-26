@@ -5,9 +5,9 @@ namespace assignment2
 	Sedan::Sedan()
 		: Vehicle(4),
 		  mTrailer(nullptr),
-		  mTrailerConnected(false)
+		  mbTrailerConnected(false)
 	{
-		Switch();
+		toggle();
 	}
 
 	Sedan::~Sedan()
@@ -17,30 +17,30 @@ namespace assignment2
 
 	bool Sedan::AddTrailer(const Trailer* trailer)
 	{
-		if (mTrailerConnected)
+		if (mbTrailerConnected)
 			return false;
 
 		mTrailer = trailer;
-		mTrailerConnected = true;
-		Switch();
+		mbTrailerConnected = true;
+		toggle();
 		return true;
 	}
 
 	bool Sedan::RemoveTrailer()
 	{
-		if (!mTrailerConnected)
+		if (!mbTrailerConnected)
 			return false;
 
 		delete mTrailer;
 		mTrailer = nullptr;
-		mTrailerConnected = false;
-		Switch();
+		mbTrailerConnected = false;
+		toggle();
 		return true;
 	}
 
 	unsigned Sedan::GetDriveSpeed() const
 	{
-		const unsigned trailerWeight = (mTrailerConnected) ? mTrailer->GetWeight() : 0;
+		const unsigned trailerWeight = (mbTrailerConnected) ? mTrailer->GetWeight() : 0;
 		const unsigned totalWeight = GetTotalWeight() + trailerWeight;
 
 		if (totalWeight <= 80)
@@ -67,9 +67,9 @@ namespace assignment2
 		return GetDriveSpeed();
 	}
 
-	void Sedan::Switch()
+	void Sedan::toggle()
 	{
-		if (mTrailerConnected)
+		if (mbTrailerConnected)
 		{
 			mInterval = 7;
 			mActive = 5;

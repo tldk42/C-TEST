@@ -1,5 +1,4 @@
 ﻿#include "Vehicle.h"
-
 namespace assignment2
 {
 	Vehicle::Vehicle(unsigned int maxPassengersCount)
@@ -16,13 +15,13 @@ namespace assignment2
 		  mPassengerCount(other.mPassengerCount),
 		  mDistance(0),
 		  mTraveledTime(0),
-		  mPassengers(new const Person*[mPassengerCount]),
+		  mPassengers(new const Person* [mPassengerCount]),
 		  mInterval(other.mInterval),
 		  mActive(other.mActive)
 	{
 		for (unsigned i = 0; i < mPassengerCount; ++i)
 		{
-			mPassengers[i] = other.mPassengers[i];
+			mPassengers[i] = new Person(other.mPassengers[i]->GetName().c_str(), other.mPassengers[i]->GetWeight());
 		}
 	}
 
@@ -108,17 +107,10 @@ namespace assignment2
 		return mCapacity;
 	}
 
-	void Vehicle::Migrate(unsigned i)
+	void Vehicle::Migrate()
 	{
-		const auto** updatedPassengers = new const Person* [--mPassengerCount];
-		unsigned     idx2 = 0;
-		for (unsigned idx = 0; idx <= mPassengerCount; ++idx)
-		{
-			if (idx != i)
-				updatedPassengers[idx2++] = mPassengers[idx];
-		}
 		delete[] mPassengers;
-		mPassengers = updatedPassengers;
+		mPassengers = nullptr;
 	}
 
 	const Person* Vehicle::GetPassenger(unsigned int i) const

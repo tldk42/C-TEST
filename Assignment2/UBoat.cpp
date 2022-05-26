@@ -15,12 +15,12 @@ namespace assignment2
 
 	unsigned UBoat::GetDiveSpeed() const
 	{
-		return static_cast<unsigned>(round((500.f * log((GetTotalWeight() + 150) / 150) + 30)));
+		return static_cast<unsigned>(round((500.f * log((GetTotalWeight() + 150.f) / 150.f) + 30.f)));
 	}
 
 	unsigned UBoat::GetSailSpeed() const
 	{
-		return static_cast<unsigned>(round(fmax((550.f - GetTotalWeight() / 10), 200)));
+		return static_cast<unsigned>(round(fmax((550.f - (GetTotalWeight() / 10.f)), 200.f)));
 	}
 
 	unsigned UBoat::GetMaxSpeed() const

@@ -38,7 +38,6 @@ namespace assignment2
 		{
 			const Person* passenger = plane.GetPassenger(0);
 			bp.AddPassenger(passenger);
-			plane.Migrate(0);
 		}
 
 		/// 2. 보트 승객
@@ -46,8 +45,9 @@ namespace assignment2
 		{
 			const Person* passenger = GetPassenger(0);
 			bp.AddPassenger(passenger);
-			Migrate(0);
 		}
+		plane.Migrate();
+		Migrate();
 
 		return bp;
 	}
