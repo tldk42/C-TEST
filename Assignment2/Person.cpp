@@ -8,11 +8,8 @@ namespace assignment2
 	{
 	}
 
-
 	Person::~Person()
-	{
-		//delete mName.c_str();
-	}
+	= default;
 
 	const std::string& Person::GetName() const
 	{

@@ -1,14 +1,10 @@
 ﻿#include "Boat.h"
 
-#include "Airplane.h"
-
 namespace assignment2
 {
 	Boat::Boat(unsigned int maxPassengersCount)
 		: Vehicle(maxPassengersCount)
 	{
-		mInterval = 3;
-		mActive = 2;
 	}
 
 	Boat::~Boat()
@@ -17,7 +13,7 @@ namespace assignment2
 
 	unsigned Boat::GetSailSpeed() const
 	{
-		return static_cast<unsigned>(round(fmax(800.f - (10 * GetTotalWeight()), 20)));
+		return static_cast<unsigned>(fmax(800.0 - 10 * GetPassengerWeight(), 20.0));
 	}
 
 	unsigned Boat::GetMaxSpeed() const
@@ -27,26 +23,7 @@ namespace assignment2
 
 	Boatplane Boat::operator+(Airplane& plane)
 	{
-		const unsigned airCount = plane.GetPassengersCount();
-		const unsigned boatCount = GetPassengersCount();
-
-		Boatplane bp(GetMaxPassengersCount() + plane.GetMaxPassengersCount());
-
-		/// 승객을 옮겨줄 것
-		/// 1. 비행기 승객부터
-		for (unsigned i = 0; i < airCount; ++i)
-		{
-			bp.AddPassenger(plane.GetPassenger(i));
-		}
-
-		/// 2. 보트 승객
-		for (unsigned i = 0; i < boatCount; ++i)
-		{
-			bp.AddPassenger(GetPassenger(i));
-		}
-		plane.Migrate();
-		Migrate();
-
+		Boatplane bp(5);
 		return bp;
 	}
 }

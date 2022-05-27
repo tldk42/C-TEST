@@ -5,17 +5,18 @@
 
 namespace assignment2
 {
-	// 다중 상속은 하지말자...
 	class Boatplane : public Vehicle, public IFlyable, public ISailable
 	{
 	public:
 		Boatplane(unsigned int maxPassengersCount);
 		~Boatplane();
-		
-		// 150 * e ^ ((-x + 500) / 300)
+
+		/** 150 * e ^ ((-x + 500) / 300) */
 		unsigned GetFlySpeed() const override;
-		// MAX((800 - 1.7x), 20)
+
+		/** MAX((800 - 1.7x), 20) */
 		unsigned GetSailSpeed() const override;
+		
 		unsigned GetMaxSpeed() const override;
 	};
 }

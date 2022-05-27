@@ -13,33 +13,17 @@ namespace assignment2
 		virtual ~Vehicle();
 
 		virtual unsigned int GetMaxSpeed() const = 0;
-		virtual void         Transform(unsigned distance);
 
 		bool          AddPassenger(const Person* person);
 		bool          RemovePassenger(unsigned int i);
 		const Person* GetPassenger(unsigned int i) const;
 		unsigned int  GetPassengersCount() const;
 		unsigned int  GetMaxPassengersCount() const;
-
-		unsigned GetTotalWeight() const;
-		inline unsigned GetDistance() const;
-		void            Migrate();
+		unsigned      GetPassengerWeight() const;
 
 	private:
-		unsigned       mCapacity;
+		unsigned       mMaxPassengerCount;
 		unsigned       mPassengerCount;
-		unsigned       mDistance;
-		unsigned       mTraveledTime;
-		const Person** mPassengers;
-
-	protected:
-		unsigned mInterval;
-		unsigned mActive;
+		const Person** mPassenger;
 	};
-
-	inline unsigned Vehicle::GetDistance() const
-	{
-		return mDistance;
-	}
-	
 }

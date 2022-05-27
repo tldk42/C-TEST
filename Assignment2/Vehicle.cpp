@@ -1,78 +1,52 @@
 ﻿#include "Vehicle.h"
+#include <iostream>
+
 namespace assignment2
 {
 	Vehicle::Vehicle(unsigned int maxPassengersCount)
-		: mCapacity(maxPassengersCount),
+		: mMaxPassengerCount(maxPassengersCount),
 		  mPassengerCount(0),
-		  mDistance(0),
-		  mTraveledTime(0),
-		  mPassengers(nullptr)
+		  mPassenger(nullptr)
 	{
+		mPassenger = new const Person*[mMaxPassengerCount];
 	}
 
 	Vehicle::Vehicle(const Vehicle& other)
-		: mCapacity(other.mCapacity),
+		: mMaxPassengerCount(other.GetMaxPassengersCount()),
 		  mPassengerCount(other.mPassengerCount),
-		  mDistance(0),
-		  mTraveledTime(0),
-		  mInterval(other.mInterval),
-		  mActive(other.mActive)
+		  mPassenger(nullptr)
 	{
-		mPassengers = new const Person* [mPassengerCount];
+		mPassenger = new const Person* [mMaxPassengerCount];
 		for (unsigned i = 0; i < mPassengerCount; ++i)
-		{
-			mPassengers[i] = new Person(other.mPassengers[i]->GetName().c_str(), other.mPassengers[i]->GetWeight());
-		}
+			mPassenger[i] = new Person(*other.GetPassenger(i));
+		std::cout << "COPY" <<std::endl;
 	}
 
 	Vehicle& Vehicle::operator=(const Vehicle& other)
 	{
-		if (mPassengers == other.mPassengers)
+		if (mPassenger == other.mPassenger)
 			return *this;
-		delete[] mPassengers;
-		mCapacity = other.mCapacity;
+		mMaxPassengerCount = other.mMaxPassengerCount;
 		mPassengerCount = other.mPassengerCount;
-		mDistance = other.mDistance;
-		mTraveledTime = other.mTraveledTime;
-		mPassengers = new const Person* [mPassengerCount];
-		mInterval = other.mInterval;
-		mActive = other.mActive;
+		mPassenger = new const Person* [mMaxPassengerCount];
 		for (unsigned i = 0; i < mPassengerCount; ++i)
-			mPassengers[i] = other.mPassengers[i];
+			mPassenger[i] = new Person(*other.GetPassenger(i));
+		std::cout << "=Operator" <<std::endl;
 		return *this;
 	}
 
 	Vehicle::~Vehicle()
 	{
 		for (unsigned i = 0; i < mPassengerCount; ++i)
-			delete mPassengers[i];
-		delete[] mPassengers;
-	}
-
-	void Vehicle::Transform(unsigned distance)
-	{
-		// 가동할 수 있는 기간이라면 가동
-		if ((mTraveledTime % mInterval) < mActive)
-		{
-			mDistance += distance;
-		}
-		mTraveledTime++;
+			delete mPassenger[i];
+		delete[] mPassenger;
 	}
 
 	bool Vehicle::AddPassenger(const Person* person)
 	{
-		if (mPassengerCount >= mCapacity)
+		if (mPassengerCount >= mMaxPassengerCount)
 			return false;
-
-		const auto** next = new const Person* [mPassengerCount + 1];
-
-		for (unsigned i = 0; i < mPassengerCount; ++i)
-		{
-			next[i] = mPassengers[i];
-		}
-		next[mPassengerCount++] = person;
-		delete[] mPassengers;
-		mPassengers = next;
+		mPassenger[mPassengerCount++] = person;
 		return true;
 	}
 
@@ -80,20 +54,12 @@ namespace assignment2
 	{
 		if (mPassengerCount <= i)
 			return false;
-
-		delete mPassengers[i];
-		mPassengers[i] = nullptr;
-
-		const auto** next = new const Person* [--mPassengerCount];
-		unsigned     idx2 = 0;
-
-		for (unsigned idx = 0; idx <= mPassengerCount; ++idx)
+		delete mPassenger[i];
+		for (unsigned idx = i; idx < mPassengerCount - 1; ++idx)
 		{
-			if (mPassengers[idx] != nullptr)
-				next[idx2++] = mPassengers[idx];
+			mPassenger[idx] = mPassenger[idx + 1];
 		}
-		delete[] mPassengers;
-		mPassengers = next;
+		mPassenger[mPassengerCount--] = nullptr;
 		return true;
 	}
 
@@ -104,31 +70,21 @@ namespace assignment2
 
 	unsigned int Vehicle::GetMaxPassengersCount() const
 	{
-		return mCapacity;
+		return mMaxPassengerCount;
 	}
 
-	void Vehicle::Migrate()
+	unsigned Vehicle::GetPassengerWeight() const
 	{
+		unsigned totalWeight = 0;
 		for (unsigned i = 0; i < mPassengerCount; ++i)
-			mPassengers = nullptr;
-		mPassengerCount = 0;
-		delete[] mPassengers;
-		mPassengers = nullptr;
+			totalWeight += mPassenger[i]->GetWeight();
+		return totalWeight;
 	}
 
 	const Person* Vehicle::GetPassenger(unsigned int i) const
 	{
 		if (mPassengerCount <= i)
 			return nullptr;
-		return mPassengers[i];
-	}
-
-	unsigned Vehicle::GetTotalWeight() const
-	{
-		unsigned totalWeight = 0;
-
-		for (unsigned i = 0; i < mPassengerCount; ++i)
-			totalWeight += mPassengers[i]->GetWeight();
-		return totalWeight;
+		return mPassenger[i];
 	}
 }

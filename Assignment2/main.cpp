@@ -1,39 +1,29 @@
-#include "Vehicle.h"
 #include "Airplane.h"
 #include "Boat.h"
-#include "Boatplane.h"
-#include "Motorcycle.h"
-#include "Sedan.h"
-#include "UBoat.h"
-#include "Trailer.h"
-#include "DeusExMachina.h"
 
 using namespace assignment2;
-using namespace std;
-
 
 int main()
 {
-	DeusExMachina* d = DeusExMachina::GetInstance();
-	auto x = d->GetFurthestTravelled();
+	Airplane a(10);
+	a.AddPassenger(new Person("Jacob", 65));
+	a.AddPassenger(new Person("acob", 65));
+	a.AddPassenger(new Person("cob", 65));
+	a.AddPassenger(new Person("Jb", 65));
+	a.AddPassenger(new Person("ob", 65));
+	Boat b(4);
+	b.AddPassenger(new Person("sara", 54));
+	b.AddPassenger(new Person("lucas", 54));
 
-	d->AddVehicle(new Motorcycle);
-	d->AddVehicle(new Boat(4));
-	d->AddVehicle(new UBoat);
-	d->AddVehicle(new Sedan);
+	Airplane a2(2);
+	a2 = a;
 
-	 x = d->GetFurthestTravelled();
-	x= d->GetFurthestTravelled();
-	
-	d->Travel();
+	Boatplane bp = a + b;
 
-	x = d->GetFurthestTravelled();
+	auto x = a.GetPassenger(4);
+	x = bp.GetPassenger(6);
+	x = bp.GetPassenger(3);
 
-	d->Travel();
-	x = d->GetFurthestTravelled();
-	d->Travel();
-	x = d->GetFurthestTravelled();
+	x = a.GetPassenger(1);
+	x = a.GetPassenger(4);
 }
-
-
-

@@ -13,11 +13,12 @@ namespace assignment2
 	public:
 		Boat(unsigned int maxPassengersCount);
 		~Boat();
-
-		// MAX((800 - 10x), 20)
-		unsigned  GetSailSpeed() const override;
-		unsigned  GetMaxSpeed() const override;
 		
+		/** MAX((800 - 10x), 20) */
+		unsigned GetSailSpeed() const override;
+		
+		unsigned GetMaxSpeed() const override;
+
 		Boatplane operator+(Airplane& plane);
 	};
 }
