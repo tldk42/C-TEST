@@ -1,5 +1,6 @@
 #include "Airplane.h"
 #include "Boat.h"
+#include "DeusExMachina.h"
 
 using namespace assignment2;
 
@@ -26,4 +27,10 @@ int main()
 
 	x = a.GetPassenger(1);
 	x = a.GetPassenger(4);
+
+	DeusExMachina* d = DeusExMachina::GetInstance();
+	d->AddVehicle(&a);
+	d = DeusExMachina::GetInstance();
+	d->AddVehicle(&b);
+	
 }
