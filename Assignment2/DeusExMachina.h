@@ -7,6 +7,13 @@ namespace assignment2
 	class DeusExMachina
 	{
 	public:
+		~DeusExMachina()
+		{
+			for (unsigned i = 0; i < mSize; ++i)
+				delete mVehicles[i];
+			delete[] mVehicles;
+		}
+		
 		DeusExMachina(const DeusExMachina&) = delete;
 		DeusExMachina& operator=(const DeusExMachina&) = delete;
 		DeusExMachina(DeusExMachina&&) = delete;

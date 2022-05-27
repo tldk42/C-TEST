@@ -68,7 +68,7 @@ namespace assignment2
 		{
 			mPassenger[idx] = mPassenger[idx + 1];
 		}
-		mPassenger[mPassengerCount--] = nullptr;
+		mPassenger[--mPassengerCount] = nullptr;
 		return true;
 	}
 

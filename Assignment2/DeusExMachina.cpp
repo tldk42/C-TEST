@@ -45,7 +45,7 @@ namespace assignment2
 
 	const Vehicle* DeusExMachina::GetFurthestTravelled() const
 	{
-		if (mSize == 0 || mVehicles == nullptr)
+		if (mSize == 0)
 			return nullptr;
 
 		unsigned max = 0;
@@ -60,7 +60,7 @@ namespace assignment2
 			}
 		}
 		if (max == 0)
-			return nullptr;
+			return mVehicles[0];
 		return mVehicles[maxIdx];
 	}
 }
