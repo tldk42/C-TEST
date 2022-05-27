@@ -24,7 +24,8 @@ namespace assignment2
 		mPassenger = new const Person* [mMaxPassengerCount];
 		for (unsigned i = 0; i < mPassengerCount; ++i)
 		{
-			mPassenger[i] = new Person(*other.mPassenger[i]);
+			mPassenger[i] = other.mPassenger[i];
+			other.mPassenger[i] = new Person(*mPassenger[i]);
 		}
 	}
 
@@ -44,7 +45,8 @@ namespace assignment2
 		mPassenger = new const Person* [mMaxPassengerCount];
 		for (unsigned i = 0; i < mPassengerCount; ++i)
 		{
-			mPassenger[i] = new Person(*other.mPassenger[i]);
+			mPassenger[i] = other.mPassenger[i];
+			other.mPassenger[i] = new Person(*mPassenger[i]);
 		}
 		return *this;
 	}

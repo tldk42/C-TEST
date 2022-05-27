@@ -10,6 +10,28 @@ namespace assignment2
 		toggle();
 	}
 
+	Sedan::Sedan(const Sedan& other)
+		: Vehicle(4),
+		  mTrailer(nullptr),
+		  mbTrailerConnected(other.mbTrailerConnected)
+	{
+		if (other.mTrailer != nullptr)
+			mTrailer = new Trailer(*other.mTrailer);
+		toggle();
+	}
+
+	Sedan& Sedan::operator=(const Sedan& other)
+	{
+		if (mTrailer == other.mTrailer)
+			return *this;
+		mbTrailerConnected = other.mbTrailerConnected;
+		delete mTrailer;
+		if (other.mTrailer != nullptr)
+			mTrailer = new Trailer(*other.mTrailer);
+		toggle();
+		return *this;
+	}
+
 	Sedan::~Sedan()
 	{
 		delete mTrailer;
