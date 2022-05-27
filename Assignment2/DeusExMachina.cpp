@@ -23,7 +23,12 @@ namespace assignment2
 	{
 		if (mSize >= 10)
 			return false;
-	
+
+		for (unsigned i = 0; i < mSize; ++i)
+		{
+			if (mVehicles[i] == vehicle)
+				return false;
+		}
 		mVehicles[mSize++] = vehicle;
 
 		return true;

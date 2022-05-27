@@ -12,6 +12,8 @@ namespace assignment2
 		  mPassenger(nullptr)
 	{
 		mPassenger = new const Person* [mMaxPassengerCount];
+		for (unsigned i = 0; i < mMaxPassengerCount; ++i)
+			mPassenger[i] = nullptr;
 	}
 
 	Vehicle::Vehicle(const Vehicle& other)
@@ -19,11 +21,13 @@ namespace assignment2
 		  mActive(other.mActive),
 		  mTravel(other.mTravel),
 		  mDistance(other.mDistance),
-		  mMaxPassengerCount(other.GetMaxPassengersCount()),
+		  mMaxPassengerCount(other.mMaxPassengerCount),
 		  mPassengerCount(other.mPassengerCount),
 		  mPassenger(nullptr)
 	{
 		mPassenger = new const Person* [mMaxPassengerCount];
+		for (unsigned i = 0; i < mMaxPassengerCount; ++i)
+			mPassenger[i] = nullptr;
 		for (unsigned i = 0; i < mPassengerCount; ++i)
 		{
 			mPassenger[i] = other.mPassenger[i];
@@ -42,6 +46,8 @@ namespace assignment2
 		mMaxPassengerCount = other.mMaxPassengerCount;
 		mPassengerCount = other.mPassengerCount;
 		mPassenger = new const Person* [mMaxPassengerCount];
+		for (unsigned i = 0; i < mMaxPassengerCount; ++i)
+			mPassenger[i] = nullptr;
 		for (unsigned i = 0; i < mPassengerCount; ++i)
 		{
 			mPassenger[i] = other.mPassenger[i];
