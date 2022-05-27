@@ -11,7 +11,7 @@ namespace assignment2
 	}
 
 	Sedan::Sedan(const Sedan& other)
-		: Vehicle(4),
+		: Vehicle(other),
 		  mTrailer(nullptr),
 		  mbTrailerConnected(other.mbTrailerConnected)
 	{
@@ -24,6 +24,7 @@ namespace assignment2
 	{
 		if (mTrailer == other.mTrailer)
 			return *this;
+		Vehicle::operator=(other);
 		mbTrailerConnected = other.mbTrailerConnected;
 		delete mTrailer;
 		if (other.mTrailer != nullptr)
