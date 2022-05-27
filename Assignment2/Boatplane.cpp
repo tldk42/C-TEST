@@ -5,6 +5,8 @@ namespace assignment2
 	Boatplane::Boatplane(unsigned int maxPassengersCount)
 		: Vehicle(maxPassengersCount)
 	{
+		mInterval = 4;
+		mActive = 1;
 	}
 
 	Boatplane::~Boatplane()
@@ -13,12 +15,12 @@ namespace assignment2
 
 	unsigned Boatplane::GetFlySpeed() const
 	{
-		return static_cast<unsigned>(150.0 * exp(500 - GetPassengerWeight()) / 300.0);
+		return static_cast<unsigned>(round(150 * exp((500.0 - GetPassengerWeight()) / 300)));
 	}
 
 	unsigned Boatplane::GetSailSpeed() const
 	{
-		return static_cast<unsigned>(fmax(800 - 1.7 * GetPassengerWeight(), 20.0));
+		return static_cast<unsigned>(round(fmax(800.0 - (1.7 * GetPassengerWeight()), 20)));
 	}
 
 	unsigned Boatplane::GetMaxSpeed() const

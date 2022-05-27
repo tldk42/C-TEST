@@ -5,6 +5,8 @@ namespace assignment2
 	UBoat::UBoat()
 		: Vehicle(50)
 	{
+		mInterval = 6;
+		mActive = 2;
 	}
 
 	UBoat::~UBoat()

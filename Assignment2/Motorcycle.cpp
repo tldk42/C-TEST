@@ -5,6 +5,8 @@ namespace assignment2
 	Motorcycle::Motorcycle()
 		: Vehicle(2)
 	{
+		mInterval = 6;
+		mActive = 5;
 	}
 
 	Motorcycle::~Motorcycle()

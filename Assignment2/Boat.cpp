@@ -1,10 +1,14 @@
 ﻿#include "Boat.h"
 
+#include "Airplane.h"
+
 namespace assignment2
 {
 	Boat::Boat(unsigned int maxPassengersCount)
 		: Vehicle(maxPassengersCount)
 	{
+		mInterval = 3;
+		mActive = 2;
 	}
 
 	Boat::~Boat()
@@ -23,7 +27,19 @@ namespace assignment2
 
 	Boatplane Boat::operator+(Airplane& plane)
 	{
-		Boatplane bp(5);
+		Boatplane bp(GetMaxPassengersCount() + plane.GetMaxPassengersCount());
+
+		for (unsigned i = 0; i < plane.GetPassengersCount(); ++i)
+		{
+			bp.AddPassenger(plane.GetPassenger(i));
+		}
+		
+		for (unsigned i = 0; i < GetPassengersCount(); ++i)
+		{
+			bp.AddPassenger(GetPassenger(i));
+		}
+		plane.Clear();
+		Clear();
 		return bp;
 	}
 }

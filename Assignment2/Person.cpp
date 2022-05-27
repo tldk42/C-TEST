@@ -9,7 +9,9 @@ namespace assignment2
 	}
 
 	Person::~Person()
-	= default;
+	{
+		
+	}
 
 	const std::string& Person::GetName() const
 	{

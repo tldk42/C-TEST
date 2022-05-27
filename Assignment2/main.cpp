@@ -20,6 +20,7 @@ int main()
 	a2 = a;
 
 	Boatplane bp = a + b;
+	auto k = b + a;
 
 	auto x = a.GetPassenger(4);
 	x = bp.GetPassenger(6);

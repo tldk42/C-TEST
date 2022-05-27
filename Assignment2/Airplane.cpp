@@ -7,6 +7,8 @@ namespace assignment2
 	Airplane::Airplane(unsigned int maxPassengersCount)
 		: Vehicle(maxPassengersCount)
 	{
+		mInterval = 4;
+		mActive = 1;
 	}
 
 	Airplane::~Airplane()
@@ -15,13 +17,14 @@ namespace assignment2
 
 	unsigned Airplane::GetDriveSpeed() const
 	{
-		return static_cast<unsigned>(4 * exp((400.0 - GetPassengerWeight()) / 70.0));
+		return static_cast<unsigned>(round(200 * exp((800.0 - GetPassengerWeight()) / 500.0)));
 	}
 
 	unsigned Airplane::GetFlySpeed() const
 	{
-		return static_cast<unsigned>(200 * exp(800.0 - GetPassengerWeight()) / 500.0);
+		return static_cast<unsigned>(round(4 * exp((400.0 - GetPassengerWeight()) / 70.0)));
 	}
+
 
 	unsigned Airplane::GetMaxSpeed() const
 	{
@@ -40,6 +43,8 @@ namespace assignment2
 		{
 			bp.AddPassenger(boat.GetPassenger(i));
 		}
+		Clear();
+		boat.Clear();
 		return bp;
 	}
 }

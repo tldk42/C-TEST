@@ -22,6 +22,7 @@ namespace assignment2
 		unsigned        GetPassengerWeight() const;
 		void            Travel(unsigned distance);
 		inline unsigned GetDistance() const;
+		inline void     Clear();
 
 	protected:
 		unsigned mInterval;
@@ -39,4 +40,9 @@ namespace assignment2
 	{
 		return mDistance;
 	}
+	inline void Vehicle::Clear()
+	{
+		mPassengerCount = 0;
+	}
+
 }

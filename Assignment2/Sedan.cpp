@@ -71,11 +71,13 @@ namespace assignment2
 	{
 		if (mbTrailerConnected)
 		{
-		
+			mInterval = 7;
+			mActive = 5;
 		}
 		else
 		{
-		
+			mInterval = 6;
+			mActive = 5;
 		}
 	}
 }
