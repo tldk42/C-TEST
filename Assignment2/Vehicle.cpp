@@ -39,6 +39,9 @@ namespace assignment2
 	{
 		if (mPassenger == other.mPassenger)
 			return *this;
+		for (unsigned i = 0; i < mMaxPassengerCount; ++i)
+			delete mPassenger[i];
+		delete[] mPassenger;
 		mInterval = other.mInterval;
 		mActive = other.mActive;
 		mTravel = other.mTravel;
