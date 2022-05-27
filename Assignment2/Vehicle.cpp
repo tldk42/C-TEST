@@ -58,7 +58,7 @@ namespace assignment2
 
 	Vehicle::~Vehicle()
 	{
-		for (unsigned i = 0; i < mPassengerCount; ++i)
+		for (unsigned i = 0; i < mMaxPassengerCount; ++i)
 			delete mPassenger[i];
 		delete[] mPassenger;
 	}
