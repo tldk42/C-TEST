@@ -33,8 +33,8 @@ namespace assignment2
 	{
 		if (mPassenger == other.mPassenger)
 			return *this;
-		// for (unsigned i = 0; i < mPassengerCount; ++i)
-		// 	delete mPassenger[i];
+		for (unsigned i = 0; i < mPassengerCount; ++i)
+			delete mPassenger[i];
 		delete[] mPassenger;
 		mInterval = other.mInterval;
 		mActive = other.mActive;
@@ -60,7 +60,7 @@ namespace assignment2
 
 	bool Vehicle::AddPassenger(const Person* person)
 	{
-		if (mPassengerCount >= mMaxPassengerCount || person == nullptr)
+		if ((mPassengerCount >= mMaxPassengerCount) || person == nullptr)
 			return false;
 		for (unsigned i = 0; i < mPassengerCount; ++i)
 		{

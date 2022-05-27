@@ -47,8 +47,11 @@ namespace assignment2
 			if (mPassenger[i] != nullptr)
 			{
 				mPassenger[i] = nullptr;
+				delete mPassenger[i];
 			}
 		}
+		delete[] mPassenger;
+		mPassenger = new const Person* [mMaxPassengerCount];
 		mPassengerCount = 0;
 	}
 
