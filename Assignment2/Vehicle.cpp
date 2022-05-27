@@ -25,7 +25,10 @@ namespace assignment2
 	{
 		mPassenger = new const Person* [mMaxPassengerCount];
 		for (unsigned i = 0; i < mPassengerCount; ++i)
-			mPassenger[i] = new Person(*other.GetPassenger(i));
+		{
+			mPassenger[i] = other.mPassenger[i];
+			other.mPassenger[i] = new Person(*mPassenger[i]);
+		}
 	}
 
 	Vehicle& Vehicle::operator=(const Vehicle& other)
@@ -40,7 +43,10 @@ namespace assignment2
 		mPassengerCount = other.mPassengerCount;
 		mPassenger = new const Person* [mMaxPassengerCount];
 		for (unsigned i = 0; i < mPassengerCount; ++i)
-			mPassenger[i] = new Person(*other.GetPassenger(i));
+		{
+			mPassenger[i] = other.mPassenger[i];
+			other.mPassenger[i] = new Person(*mPassenger[i]);
+		}
 		return *this;
 	}
 
