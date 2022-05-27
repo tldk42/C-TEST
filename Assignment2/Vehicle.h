@@ -42,7 +42,7 @@ namespace assignment2
 	}
 	inline void Vehicle::Clear()
 	{
-		for (unsigned i = 0; i < mMaxPassengerCount; ++i)
+		for (unsigned i = 0; i < mPassengerCount; ++i)
 		{
 			if (mPassenger[i] != nullptr)
 			{

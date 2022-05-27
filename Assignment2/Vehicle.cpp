@@ -8,12 +8,9 @@ namespace assignment2
 		  mTravel(0),
 		  mDistance(0),
 		  mMaxPassengerCount(maxPassengersCount),
-		  mPassengerCount(0),
-		  mPassenger(nullptr)
+		  mPassengerCount(0)
 	{
 		mPassenger = new const Person* [mMaxPassengerCount];
-		for (unsigned i = 0; i < mMaxPassengerCount; ++i)
-			mPassenger[i] = nullptr;
 	}
 
 	Vehicle::Vehicle(const Vehicle& other)
@@ -22,12 +19,9 @@ namespace assignment2
 		  mTravel(other.mTravel),
 		  mDistance(other.mDistance),
 		  mMaxPassengerCount(other.mMaxPassengerCount),
-		  mPassengerCount(other.mPassengerCount),
-		  mPassenger(nullptr)
+		  mPassengerCount(other.mPassengerCount)
 	{
 		mPassenger = new const Person* [mMaxPassengerCount];
-		for (unsigned i = 0; i < mMaxPassengerCount; ++i)
-			mPassenger[i] = nullptr;
 		for (unsigned i = 0; i < mPassengerCount; ++i)
 		{
 			mPassenger[i] = other.mPassenger[i];
@@ -39,8 +33,8 @@ namespace assignment2
 	{
 		if (mPassenger == other.mPassenger)
 			return *this;
-		for (unsigned i = 0; i < mMaxPassengerCount; ++i)
-			delete mPassenger[i];
+		// for (unsigned i = 0; i < mPassengerCount; ++i)
+		// 	delete mPassenger[i];
 		delete[] mPassenger;
 		mInterval = other.mInterval;
 		mActive = other.mActive;
@@ -49,8 +43,6 @@ namespace assignment2
 		mMaxPassengerCount = other.mMaxPassengerCount;
 		mPassengerCount = other.mPassengerCount;
 		mPassenger = new const Person* [mMaxPassengerCount];
-		for (unsigned i = 0; i < mMaxPassengerCount; ++i)
-			mPassenger[i] = nullptr;
 		for (unsigned i = 0; i < mPassengerCount; ++i)
 		{
 			mPassenger[i] = other.mPassenger[i];
@@ -61,7 +53,7 @@ namespace assignment2
 
 	Vehicle::~Vehicle()
 	{
-		for (unsigned i = 0; i < mMaxPassengerCount; ++i)
+		for (unsigned i = 0; i < mPassengerCount; ++i)
 			delete mPassenger[i];
 		delete[] mPassenger;
 	}
