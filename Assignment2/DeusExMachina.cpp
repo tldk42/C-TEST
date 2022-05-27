@@ -21,7 +21,7 @@ namespace assignment2
 
 	bool DeusExMachina::AddVehicle(Vehicle* vehicle)
 	{
-		if (mSize >= 10)
+		if (mSize >= 10 || vehicle == nullptr)
 			return false;
 
 		for (unsigned i = 0; i < mSize; ++i)
