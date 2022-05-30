@@ -1,7 +1,13 @@
 ﻿#pragma once
+#include "Lawn.h"
 
-class CircleLawn
+namespace lab5
 {
-public:
-	
-};
+	class CircleLawn : public Lawn
+	{
+	public:
+		CircleLawn(unsigned radius);
+
+		unsigned GetArea() const override;
+	};
+}
