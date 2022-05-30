@@ -18,9 +18,12 @@ namespace lab5
 	{
 		switch (fenceType)
 		{
-		case RED_CEDAR: return (2 * (mWidth + mHeight) * 6);
-		case SPRUCE: return (2 * (mWidth + mHeight) * 7);
-		default: Assert(false, "unknown type");
+		case RED_CEDAR:
+			return (2 * (mWidth + mHeight) * 6);
+		case SPRUCE:
+			return (2 * (mWidth + mHeight) * 7);
+		default:
+			Assert(false);
 		}
 	}
 

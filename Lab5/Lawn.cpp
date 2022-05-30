@@ -17,12 +17,18 @@ namespace lab5
 	{
 		switch (grassType)
 		{
-		case BERMUDA: return static_cast<unsigned>(ceil(8 * GetArea()));
-		case BAHIA: return static_cast<unsigned>(ceil(5 * GetArea()));
-		case BENTGRASS: return static_cast<unsigned>(ceil(3 * GetArea()));
-		case PERENNIAL_RYEGRASS: return static_cast<unsigned>(ceil(2.5 * GetArea()));
-		case ST_AUGUSTINE: return static_cast<unsigned>(ceil(4.5 * GetArea()));
-		default: Assert(false, "unknown type");
+		case BERMUDA:
+			return static_cast<unsigned>(ceil(8 * GetArea()));
+		case BAHIA:
+			return static_cast<unsigned>(ceil(5 * GetArea()));
+		case BENTGRASS:
+			return static_cast<unsigned>(ceil(3 * GetArea()));
+		case PERENNIAL_RYEGRASS:
+			return static_cast<unsigned>(ceil(2.5 * GetArea()));
+		case ST_AUGUSTINE:
+			return static_cast<unsigned>(ceil(4.5 * GetArea()));
+		default:
+			Assert(false);
 		}
 	}
 
