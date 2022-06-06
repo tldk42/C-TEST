@@ -17,7 +17,7 @@ namespace lab6
 	int Min(const std::vector<int>& v)
 	{
 		if (v.empty())
-			return INT_MIN;
+			return INT_MAX;
 		
 		int min = INT_MAX;
 		for (int iter : v)
@@ -31,7 +31,7 @@ namespace lab6
 	int Max(const std::vector<int>& v)
 	{
 		if (v.empty())
-			return INT_MAX;
+			return INT_MIN;
 		
 		int max = INT_MIN;
 		for (int iter : v)
@@ -90,7 +90,7 @@ namespace lab6
 		const int pivotPos = Partition(v, lh, rh);
 
 		SortRecursive(v, lh, pivotPos - 1);
-		SortRecursive(v, pivotPos + 1 , rh);
+		SortRecursive(v, pivotPos + 1, rh);
 	}
 	
 	int Partition(std::vector<int>& v, int lh, int rh)
