@@ -61,7 +61,7 @@ namespace assignment3
 	void SmartQueue<T>::Enqueue(T number)
 	{
 		mSum += number;
-		mSumPow += pow(number, 2);
+		mSumPow += static_cast<T>(pow(number, 2));
 
 		mQueue.push(number);
 	}
@@ -71,7 +71,7 @@ namespace assignment3
 	{
 		T temp = mQueue.front();
 		mSum -= temp;
-		mSumPow -= pow(temp, 2);
+		mSumPow -= static_cast<T>(pow(temp, 2));
 		mQueue.pop();
 
 		return temp;
@@ -94,7 +94,7 @@ namespace assignment3
 		T    value = mQueue.front();
 		auto copy = mQueue;
 		copy.pop();
-		for (int i = 1; i < mQueue.size(); ++i)
+		for (unsigned i = 1; i < mQueue.size(); ++i)
 		{
 			value = value > copy.front() ? copy.front() : value;
 			copy.pop();
@@ -113,7 +113,7 @@ namespace assignment3
 		T    value = mQueue.front();
 		auto copy = mQueue;
 		copy.pop();
-		for (int i = 1; i < mQueue.size(); ++i)
+		for (unsigned i = 1; i < mQueue.size(); ++i)
 		{
 			value = value < copy.front() ? copy.front() : value;
 			copy.pop();

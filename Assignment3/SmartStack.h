@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include <stack>
-#include <string>
 
 namespace assignment3
 {
@@ -65,7 +64,7 @@ namespace assignment3
 	void SmartStack<T>::Push(T number)
 	{
 		mSum += number;
-		mSumPow += pow(number, 2);
+		mSumPow += static_cast<T>(pow(number, 2));
 		if (mMinStack.empty())
 		{
 			mMinStack.push(number);
@@ -104,7 +103,7 @@ namespace assignment3
 		}
 		T temp = mStack.top();
 		mSum -= temp;
-		mSumPow -= pow(temp, 2);
+		mSumPow -= static_cast<T>(pow(temp, 2));
 		mStack.pop();
 		return temp;
 	}

@@ -10,7 +10,6 @@ namespace assignment3
 	public:
 		QueueStack(unsigned int maxStackSize);
 
-
 		void Enqueue(T number);
 
 		T Peek();
@@ -40,7 +39,8 @@ namespace assignment3
 
 	template <typename T>
 	QueueStack<T>::QueueStack(unsigned maxStackSize)
-		: mSum(0),
+		: mMaxStackSize(maxStackSize),
+		  mSum(0),
 		  mSumPow(0),
 		  mTCount(0)
 	{
@@ -49,8 +49,13 @@ namespace assignment3
 	template <typename T>
 	void QueueStack<T>::Enqueue(T number)
 	{
+		if (mMaxStackSize == 0)
+		{
+			return;
+		}
+
 		mSum += number;
-		mSumPow += pow(number, 2);
+		mSumPow += static_cast<T>(pow(number, 2));
 		mTCount++;
 		if (!mQueue.empty() && mQueue.back().size() < mMaxStackSize)
 		{
@@ -77,9 +82,14 @@ namespace assignment3
 		T value = Peek();
 
 		mSum -= value;
-		mSumPow -= pow(value, 2);
+		mSumPow -= static_cast<T>(pow(value, 2));
 		mQueue.front().pop();
 		mTCount--;
+
+		if (mQueue.front().empty())
+		{
+			mQueue.pop();
+		}
 		return value;
 	}
 
@@ -94,13 +104,19 @@ namespace assignment3
 		T    value = std::numeric_limits<T>::lowest();
 		auto copy = mQueue;
 
-		for (int i = 0; i < mQueue.size(); ++i)
+		for (unsigned i = 0; i < mQueue.size(); ++i)
 		{
-			for (int j = 0; j < mMaxStackSize; ++j)
+			unsigned stackSize = copy.front().size();
+			for (unsigned j = 0; j < stackSize; ++j)
 			{
 				value = value < copy.front().top() ? copy.front().top() : value;
 				copy.front().pop();
 			}
+			// for (unsigned j = 0; j < mMaxStackSize; ++j)
+			// {
+			// 	value = value < copy.front().top() ? copy.front().top() : value;
+			// 	copy.front().pop();
+			// }
 			copy.pop();
 		}
 
@@ -115,16 +131,22 @@ namespace assignment3
 			return std::numeric_limits<T>::max();
 		}
 
-		T    value = std::numeric_limits<T>::lowest();
+		T    value = std::numeric_limits<T>::max();
 		auto copy = mQueue;
 
-		for (int i = 0; i < mQueue.size(); ++i)
+		for (unsigned i = 0; i < mQueue.size(); ++i)
 		{
-			for (int j = 0; j < mMaxStackSize; ++j)
+			unsigned stackSize = copy.front().size();
+			for (unsigned j = 0; j < stackSize; ++j)
 			{
 				value = value > copy.front().top() ? copy.front().top() : value;
 				copy.front().pop();
 			}
+			// for (unsigned j = 0; j < mMaxStackSize; ++j)
+			// {
+			// 	value = value > copy.front().top() ? copy.front().top() : value;
+			// 	copy.front().pop();
+			// }
 			copy.pop();
 		}
 
