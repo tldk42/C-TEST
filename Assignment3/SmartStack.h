@@ -121,7 +121,6 @@ namespace assignment3
 		{
 			return std::numeric_limits<T>::max();
 		}
-
 		return mMinStack.top();
 	}
 
@@ -151,8 +150,7 @@ namespace assignment3
 	double SmartStack<T>::GetVariance()
 	{
 		// Calculating Variance
-		double variance = (mSumPow - (2 * GetAverage() * mSum) + mStack.size() * pow(GetAverage(), 2)) / mStack.size();
-		return variance;
+		return (static_cast<double>(mSumPow) - (2 * GetAverage() * static_cast<double>(mSum)) + mStack.size() * pow(GetAverage(), 2)) / mStack.size();
 	}
 
 	template <typename T>

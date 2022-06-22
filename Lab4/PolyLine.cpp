@@ -5,16 +5,15 @@
 namespace lab4
 {
 	PolyLine::PolyLine()
-		: mPoint(nullptr),
+		: mPoint(new const Point*[10]),
 		  mSize(0)
 	{
 	}
 
 	PolyLine::PolyLine(const PolyLine& other)
-		: mPoint(),
+		: mPoint(new const Point*[10]),
 		  mSize(other.mSize)
 	{
-		mPoint = new const Point* [mSize];
 		for (unsigned i = 0; i < mSize; ++i)
 			mPoint[i] = new Point(other.mPoint[i]->GetX(), other.mPoint[i]->GetY());
 	}
@@ -28,30 +27,23 @@ namespace lab4
 
 	PolyLine& PolyLine::operator=(const PolyLine& other)
 	{
-		if (other.mPoint == mPoint)
+		if (this == &other)
 			return *this;
 		for (unsigned i = 0; i < mSize; ++i)
 			delete *(mPoint + i);
 		delete[] mPoint;
 		mSize = other.mSize;
-		mPoint = new const Point* [mSize];
+		mPoint = new const Point*[10];
 		for (unsigned i = 0; i < mSize; ++i)
 			mPoint[i] = new Point(other.mPoint[i]->GetX(), other.mPoint[i]->GetY());
 		return *this;
 	}
-	
+
 	bool PolyLine::AddPoint(float x, float y)
 	{
 		if (mSize >= 10)
 			return false;
-		const auto tempPoints = new const Point* [mSize + 1];
-		for (unsigned i = 0; i < mSize; ++i)
-		{
-			tempPoints[i] = mPoint[i];
-		}
-		tempPoints[mSize++] = new const Point(x, y);
-		delete[] mPoint;
-		mPoint = tempPoints;
+		mPoint[mSize++] = new const Point(x, y);
 		return true;
 	}
 
@@ -59,14 +51,7 @@ namespace lab4
 	{
 		if (mSize >= 10 || point == nullptr)
 			return false;
-		const auto tempPoints = new const Point* [mSize + 1];
-		for (unsigned i = 0; i < mSize; ++i)
-		{
-			tempPoints[i] = mPoint[i];
-		}
-		tempPoints[mSize++] = point;
-		delete[] mPoint;
-		mPoint = tempPoints;
+		mPoint[mSize++] = point;
 		return true;
 	}
 
@@ -76,15 +61,15 @@ namespace lab4
 			return false;
 		delete mPoint[i];
 		mPoint[i] = nullptr;
-		const auto tempPoints = new const Point* [--mSize];
-		unsigned   idx2 = 0;
-		for (unsigned idx = 0; idx <= mSize; ++idx)
+
+		if (i != mSize - 1)
 		{
-			if (mPoint[idx] != nullptr)
-				tempPoints[idx2++] = mPoint[idx];
+			for (unsigned idx = i; idx < mSize - 1; ++idx)
+			{
+				mPoint[idx] = mPoint[idx + 1];
+			}
+			mPoint[--mSize] = nullptr;
 		}
-		delete[] mPoint;
-		mPoint = tempPoints;
 		return true;
 	}
 

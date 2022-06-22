@@ -5,6 +5,7 @@
 #include "QueueStack.h"
 #include "SmartQueue.h"
 #include "SmartStack.h"
+
 using namespace assignment3;
 
 
@@ -469,24 +470,25 @@ void TestMinMaxWhenEmpty()
 	assert(q4.GetMax() == -std::numeric_limits<double>::max());
 	assert(q4.GetMin() == std::numeric_limits<double>::max());
  
-	// QueueStack<int> qs1(1);
-	// assert(qs1.GetMax() == std::numeric_limits<int>::min());
-	// assert(qs1.GetMin() == std::numeric_limits<int>::max());
- //
-	// QueueStack<unsigned int> qs2(1);
-	// assert(qs2.GetMax() == std::numeric_limits<unsigned int>::min());
-	// assert(qs2.GetMin() == std::numeric_limits<unsigned int>::max());
- //
-	// QueueStack<float> qs3(1);
-	// assert(qs3.GetMax() == -std::numeric_limits<float>::max());
-	// assert(qs3.GetMin() == std::numeric_limits<float>::max());
- //
-	// QueueStack<double> qs4(1);
-	// assert(qs4.GetMax() == -std::numeric_limits<double>::max());
-	// assert(qs4.GetMin() == std::numeric_limits<double>::max());
+	QueueStack<int> qs1(1);
+	assert(qs1.GetMax() == std::numeric_limits<int>::min());
+	assert(qs1.GetMin() == std::numeric_limits<int>::max());
+ 
+	QueueStack<unsigned int> qs2(1);
+	assert(qs2.GetMax() == std::numeric_limits<unsigned int>::min());
+	assert(qs2.GetMin() == std::numeric_limits<unsigned int>::max());
+ 
+	QueueStack<float> qs3(1);
+	assert(qs3.GetMax() == -std::numeric_limits<float>::max());
+	assert(qs3.GetMin() == std::numeric_limits<float>::max());
+ 
+	QueueStack<double> qs4(1);
+	assert(qs4.GetMax() == -std::numeric_limits<double>::max());
+	assert(qs4.GetMin() == std::numeric_limits<double>::max());
 };
 
 int main()
 {
-	TestSmartStack();
+	
+	
 }

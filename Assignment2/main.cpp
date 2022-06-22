@@ -1,11 +1,13 @@
 #include "Airplane.h"
 #include "Boat.h"
 #include "DeusExMachina.h"
+#include "Sedan.h"
 
 using namespace assignment2;
 
 int main()
 {
+    Vehicle* v = new Boat(2);
  	Airplane a (4);
  	Airplane a2(12);
 
