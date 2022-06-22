@@ -136,8 +136,7 @@ namespace assignment3
 	template <typename T>
 	double SmartQueue<T>::GetVariance()
 	{
-		double variance = (mSumPow - (2 * GetAverage() * mSum) + mQueue.size() * pow(GetAverage(), 2)) / mQueue.size();
-		return variance;
+		return (static_cast<double>(mSumPow) - GetAverage() * static_cast<double>(mSum)) / static_cast<double>(mQueue.size());
 	}
 
 	template <typename T>
