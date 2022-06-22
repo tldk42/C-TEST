@@ -47,7 +47,7 @@ namespace assignment3
 	private:
 		std::queue<T> mQueue;
 		T             mSum;
-		T             mSumPow;
+		double        mSumPow;
 	};
 
 	template <typename T>
@@ -61,7 +61,7 @@ namespace assignment3
 	void SmartQueue<T>::Enqueue(T number)
 	{
 		mSum += number;
-		mSumPow += static_cast<T>(pow(number, 2));
+		mSumPow = sqrt(pow(mSumPow, 2) + pow(number, 2));
 
 		mQueue.push(number);
 	}
@@ -71,7 +71,7 @@ namespace assignment3
 	{
 		T temp = mQueue.front();
 		mSum -= temp;
-		mSumPow -= static_cast<T>(pow(temp, 2));
+		mSumPow = sqrt(pow(mSumPow, 2) - pow(temp, 2));
 		mQueue.pop();
 
 		return temp;
@@ -136,7 +136,7 @@ namespace assignment3
 	template <typename T>
 	double SmartQueue<T>::GetVariance()
 	{
-		return (static_cast<double>(mSumPow) - GetAverage() * static_cast<double>(mSum)) / static_cast<double>(mQueue.size());
+		return (pow(mSumPow, 2) - GetAverage() * static_cast<double>(mSum)) / static_cast<double>(mQueue.size());
 	}
 
 	template <typename T>

@@ -50,7 +50,7 @@ namespace assignment3
 		std::stack<T> mMinStack;
 		std::stack<T> mMaxStack;
 		T             mSum;
-		T             mSumPow;
+		double        mSumPow;
 	};
 
 	template <typename T>
@@ -64,7 +64,7 @@ namespace assignment3
 	void SmartStack<T>::Push(T number)
 	{
 		mSum += number;
-		mSumPow += static_cast<T>(pow(number, 2));
+		mSumPow = sqrt(pow(mSumPow, 2) + pow(number, 2));
 		if (mMinStack.empty())
 		{
 			mMinStack.push(number);
@@ -103,7 +103,7 @@ namespace assignment3
 		}
 		T temp = mStack.top();
 		mSum -= temp;
-		mSumPow -= static_cast<T>(pow(temp, 2));
+		mSumPow = sqrt(pow(mSumPow, 2) - pow(temp, 2));
 		mStack.pop();
 		return temp;
 	}
@@ -150,7 +150,7 @@ namespace assignment3
 	double SmartStack<T>::GetVariance()
 	{
 		// Calculating Variance
-		return (static_cast<double>(mSumPow) - GetAverage() * static_cast<double>(mSum)) / static_cast<double>(mStack.size());
+		return (pow(mSumPow, 2) - GetAverage() * static_cast<double>(mSum)) / static_cast<double>(mStack.size());
 	}
 
 	template <typename T>
