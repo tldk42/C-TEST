@@ -25,15 +25,15 @@ namespace lab8
 	public:
 		FixedVector();
 
-		bool Add(const bool& data);
+		bool Add(const bool& bData);
 
-		bool Remove(const bool& data);
+		bool Remove(const bool& bData);
 
 		bool Get(unsigned int index) const;
 
 		bool operator[](unsigned int index) const;
 
-		int GetIndex(const bool& data) const;
+		int GetIndex(const bool& bData) const;
 
 		size_t GetSize() const;
 
@@ -51,14 +51,14 @@ namespace lab8
 	}
 
 	template <size_t N>
-	bool FixedVector<bool, N>::Add(const bool& data)
+	bool FixedVector<bool, N>::Add(const bool& bData)
 	{
 		if (mSize >= N)
 		{
 			return false;
 		}
 
-		if (data)
+		if (bData)
 		{
 			auto arraySize = mSize / 32;
 			mArray[arraySize] = SetBit(mArray[arraySize], mSize);
@@ -68,12 +68,12 @@ namespace lab8
 	}
 
 	template <size_t N>
-	bool FixedVector<bool, N>::Remove(const bool& data)
+	bool FixedVector<bool, N>::Remove(const bool& bData)
 	{
 		for (size_t i = 0; i < mSize; ++i)
 		{
 			// 만약 현재 bit가 data와 일치하는 bit
-			if (GetBit(mArray[i / 32], i % 32) == data)
+			if (GetBit(mArray[i / 32], i % 32) == bData)
 			{
 				//int32_t bitValue = ClearBit(mArray[i / 32], i % 32);
 				for (size_t j = i; j < mSize - 1; ++j)
@@ -110,11 +110,11 @@ namespace lab8
 	}
 
 	template <size_t N>
-	int FixedVector<bool, N>::GetIndex(const bool& data) const
+	int FixedVector<bool, N>::GetIndex(const bool& bData) const
 	{
 		for (size_t i = 0; i < mSize; ++i)
 		{
-			if (GetBit(mArray[i / 32], i % 32) == data)
+			if (GetBit(mArray[i / 32], i % 32) == bData)
 			{
 				return i;
 			}
