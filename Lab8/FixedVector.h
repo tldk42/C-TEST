@@ -3,7 +3,7 @@
 namespace lab8
 {
 	template <typename T, size_t N>
-	class FixedVector
+	class FixedVector<T, N>
 	{
 	public:
 		FixedVector();
@@ -83,7 +83,7 @@ namespace lab8
 		{
 			if (mArray[i] == data)
 			{
-				return i;
+				return static_cast<int>(i);
 			}
 		}
 		return -1;

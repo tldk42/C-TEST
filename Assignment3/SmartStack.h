@@ -150,7 +150,7 @@ namespace assignment3
 	double SmartStack<T>::GetVariance()
 	{
 		// Calculating Variance
-		return (pow(mSumPow, 2) - GetAverage() * static_cast<double>(mSum)) / static_cast<double>(mStack.size());
+		return (pow(mSumPow, 2) - pow(GetAverage(), 2));
 	}
 
 	template <typename T>

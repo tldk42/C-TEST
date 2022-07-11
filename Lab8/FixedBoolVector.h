@@ -76,21 +76,44 @@ namespace lab8
 			if (GetBit(mArray[i / 32], i % 32) == bData)
 			{
 				//int32_t bitValue = ClearBit(mArray[i / 32], i % 32);
-				for (size_t j = i; j < mSize - 1; ++j)
+				// for (size_t j = i; j < mSize - 1; ++j)
+				// {
+				// 	// 현재 bit의 다음 bit가 true일 때
+				// 	if (GetBit(mArray[(j + 1) / 32], (j + 1) % 32) == true)
+				// 	{
+				// 		// 현재 bit를 true로 바꿔준다.
+				// 		mArray[j / 32] = SetBit(mArray[j / 32], j % 32);
+				// 	}
+				// 	else
+				// 	{
+				// 		mArray[j / 32] = ClearBit(mArray[j / 32], j % 32);
+				// 	}
+				// }
+				for (size_t j = (i / 32); j <= (mSize / 32); ++j)
 				{
-					// 현재 bit의 다음 bit가 true일 때
-					if (GetBit(mArray[(j + 1) / 32], (j + 1) % 32) == true)
+					// 왼쪽으로 한칸씩 옮긴 값
+					int32_t value = mArray[j] >> 1;
+					if (j == (i / 32) && (i / 32) != 0)
 					{
-						// 현재 bit를 true로 바꿔준다.
-						mArray[j / 32] = SetBit(mArray[j / 32], j % 32);
+						if (GetBit(mArray[j], i))
+						{
+							value = ClearBit(value, static_cast<int32_t>(i));
+						}
+						else
+						{
+							value = SetBit(value, static_cast<int32_t>(i));
+						}
 					}
-					else
+					if (GetBit(mArray[j + 1], 0) != 0)
 					{
-						mArray[j / 32] = ClearBit(mArray[j / 32], j % 32);
+						value = SetBit(value, 31);
 					}
+					mArray[j] = value;
 				}
+
+
 				mSize--;
-				mArray[mSize / 32] = ClearBit(mArray[mSize / 32], mSize % 32);
+				//mArray[mSize / 32] = ClearBit(mArray[mSize / 32], mSize % 32);
 				return true;
 			}
 		}

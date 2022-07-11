@@ -33,7 +33,6 @@ namespace assignment3
 		unsigned                  mMaxStackSize;
 		std::queue<std::stack<T>> mQueue;
 		T                         mSum;
-		T                         mSumPow;
 		unsigned                  mTCount;
 	};
 
@@ -41,7 +40,6 @@ namespace assignment3
 	QueueStack<T>::QueueStack(unsigned maxStackSize)
 		: mMaxStackSize(maxStackSize),
 		  mSum(0),
-		  mSumPow(0),
 		  mTCount(0)
 	{
 	}
@@ -55,7 +53,6 @@ namespace assignment3
 		}
 
 		mSum += number;
-		mSumPow += static_cast<T>(pow(number, 2));
 		mTCount++;
 		if (!mQueue.empty() && mQueue.back().size() < mMaxStackSize)
 		{
@@ -82,7 +79,6 @@ namespace assignment3
 		T value = Peek();
 
 		mSum -= value;
-		mSumPow -= static_cast<T>(pow(value, 2));
 		mQueue.front().pop();
 		mTCount--;
 
@@ -112,11 +108,6 @@ namespace assignment3
 				value = value < copy.front().top() ? copy.front().top() : value;
 				copy.front().pop();
 			}
-			// for (unsigned j = 0; j < mMaxStackSize; ++j)
-			// {
-			// 	value = value < copy.front().top() ? copy.front().top() : value;
-			// 	copy.front().pop();
-			// }
 			copy.pop();
 		}
 
@@ -142,11 +133,6 @@ namespace assignment3
 				value = value > copy.front().top() ? copy.front().top() : value;
 				copy.front().pop();
 			}
-			// for (unsigned j = 0; j < mMaxStackSize; ++j)
-			// {
-			// 	value = value > copy.front().top() ? copy.front().top() : value;
-			// 	copy.front().pop();
-			// }
 			copy.pop();
 		}
 
