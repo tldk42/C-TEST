@@ -166,8 +166,6 @@ namespace assignment4
 				{
 					switchThisNode->Parent.lock()->Right = switchThisNode->Left;
 				}
-				switchThisNode = nullptr;
-
 				return;
 			}
 			return SwapRecursive(deleteThisNode, switchThisNode->Right);
@@ -189,7 +187,6 @@ namespace assignment4
 				{
 					switchThisNode->Parent.lock()->Left = switchThisNode->Right;
 				}
-				switchThisNode = nullptr;
 				return;
 			}
 			return SwapRecursive(deleteThisNode, switchThisNode->Left);
