@@ -2,12 +2,11 @@
 
 #include <memory>
 #include <vector>
-#include "TreeNode.h"
 
 namespace assignment4
 {
-	// template <typename T>
-	// class TreeNode;
+	template <typename T>
+	class TreeNode;
 
 	template <typename T>
 	class BinarySearchTree final
