@@ -1,86 +1,176 @@
 ﻿#pragma once
-#include <memory>
-#include <memory>
 
-#include "Node.h"
+#include <memory>
 
 namespace lab10
 {
+	template <typename T>
+	class Node;
+
 	template <typename T>
 	class DoublyLinkedList
 	{
 	public:
 		DoublyLinkedList();
+		void Insert(std::unique_ptr<T> data);
+		void Insert(std::unique_ptr<T> data, unsigned int index);
+		bool Delete(const T& data);
+		bool Search(const T& data) const;
 
-		void Insert(std::unique_ptr<T> data, unsigned index = 0);
-
-		bool Search(T) const;
-
-		bool Delete(T) const;
-
-		std::shared_ptr<Node<T>> operator[](uint32_t index) const;
-
-		uint32_t GetLength() const;
+		std::shared_ptr<Node<T>> operator[](unsigned int index) const;
+		unsigned int             GetLength() const;
 
 	private:
-		uint32_t mLength;
-		std::shared_ptr<Node<T>> mRoot;
-		std::weak_ptr<Node<T>> mCurrentNode;
+		std::shared_ptr<Node<T>> mEntry;
+		std::weak_ptr<Node<T>>   mTail;
+		unsigned                 mLength;
+	private:
+		std::shared_ptr<Node<T>> SearchData(const T& data) const;
 	};
-
 
 	template <typename T>
 	DoublyLinkedList<T>::DoublyLinkedList()
-		: mLength(0),
-		  mRoot(nullptr),
-		  mCurrentNode(mRoot)
+		: mEntry(nullptr),
+		  mTail(mEntry),
+		  mLength(0)
 	{
 	}
 
 	template <typename T>
-	void DoublyLinkedList<T>::Insert(std::unique_ptr<T> data, unsigned index)
+	void DoublyLinkedList<T>::Insert(std::unique_ptr<T> data)
 	{
-		if (mLength == 0)
+		if (mEntry == nullptr)
 		{
-			mRoot = std::make_shared<Node<T>>(std::move(data));
-			mCurrentNode = mRoot;
+			mEntry = std::make_shared<Node<T>>(std::move(data));
+			mTail = mEntry;
 		}
 		else
 		{
-			if (!mCurrentNode.expired())
+			if (!mTail.expired())
 			{
-				auto currentNode = mCurrentNode.lock();
-				mCurrentNode = std::make_shared<Node<T>>(std::move(data));
-				currentNode->SetNext(mCurrentNode.lock());
-				currentNode.reset();
+				auto tailNode = mTail.lock();
+				tailNode->Next = std::make_shared<Node<T>>(std::move(data), tailNode);
+				mTail = tailNode->Next;
 			}
+		}
+		mLength++;
+	}
+
+	template <typename T>
+	void DoublyLinkedList<T>::Insert(std::unique_ptr<T> data, unsigned int index)
+	{
+		if (mLength <= index)
+		{
+			Insert(std::move(data));
+			return;
+		}
+
+		auto                     node = (*this)[index];
+		std::shared_ptr<Node<T>> newNode;
+
+		// if previous node not exist ,, -> entryNode
+		if (node->Previous.expired())
+		{
+			newNode = std::make_shared<Node<T>>(std::move(data));
+			newNode->Next = node;
+			node->Previous = newNode;
+			mEntry = newNode;
+		}
+		// if next node not exist ,, -> tailNode
+		else if (node->Next == nullptr)
+		{
+			newNode = std::make_shared<Node<T>>(std::move(data), node);
+			node->Next = newNode;
+			mTail = newNode;
+		}
+		// default case ,,
+		else
+		{
+			auto prevNode = node->Previous.lock();
+			newNode = std::make_shared<Node<T>>(std::move(data), prevNode);
+			prevNode->Next = newNode;
+			node->Previous = newNode;
+			newNode->Next = node;
 		}
 		mLength++;
 	}
 
 
 	template <typename T>
-	bool DoublyLinkedList<T>::Search(T) const
+	bool DoublyLinkedList<T>::Delete(const T& data)
 	{
-		return false;
+		auto node = SearchData(data);
+		if (node == nullptr)
+		{
+			return false;
+		}
+
+		// if previous node not exist ,, -> entryNode
+		if (node->Previous.expired())
+		{
+			mEntry = mEntry->Next;
+		}
+		// if next node not exist ,, -> tailNode
+		else if (node->Next == nullptr)
+		{
+			mTail = mTail.lock()->Previous;
+			(*this)[mLength - 2]->Next = nullptr;
+		}
+		// default case ,,
+		else
+		{
+			auto prevNode = node->Previous.lock();
+			prevNode->Next = node->Next;
+			node->Next->Previous = prevNode;
+		}
+		--mLength;
+		return true;
 	}
 
 	template <typename T>
-	bool DoublyLinkedList<T>::Delete(T) const
+	bool DoublyLinkedList<T>::Search(const T& data) const
 	{
-		return false;
-	}
-
-	template <typename T>
-	std::shared_ptr<Node<T>> DoublyLinkedList<T>::operator[](uint32_t index) const
-	{
-		return std::make_shared<Node<T>>(0);
+		if (SearchData(data) == nullptr)
+		{
+			return false;
+		}
+		return true;
 	}
 
 
 	template <typename T>
-	uint32_t DoublyLinkedList<T>::GetLength() const
+	std::shared_ptr<Node<T>> DoublyLinkedList<T>::operator[](unsigned int index) const
+	{
+		if (index >= mLength)
+		{
+			return nullptr;
+		}
+		auto node = mEntry;
+		for (unsigned i = 0; i < index; ++i)
+		{
+			node = node->Next;
+		}
+		return node;
+	}
+
+	template <typename T>
+	unsigned int DoublyLinkedList<T>::GetLength() const
 	{
 		return mLength;
+	}
+
+	template <typename T>
+	std::shared_ptr<Node<T>> DoublyLinkedList<T>::SearchData(const T& data) const
+	{
+		auto findNode = mEntry;
+		while (findNode != nullptr)
+		{
+			if (*findNode->Data == data)
+			{
+				return findNode;
+			}
+			findNode = findNode->Next;
+		}
+		return nullptr;
 	}
 }

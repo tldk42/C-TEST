@@ -220,6 +220,10 @@ using namespace assignment4;
 
 int main()
 {
+	auto n1 = std::make_shared<TreeNode<int>>(std::make_unique<int>(3));
+	auto n2 = std::make_shared<TreeNode<int>>(std::make_unique<int>(30));
+	n1->Right = n2;
+	n2->Parent = n1;
 	// Test_Insert_GetRoot();
 	// Test_Search();
 	// Test_Delete();
