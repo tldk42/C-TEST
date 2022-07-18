@@ -25,7 +25,7 @@ namespace lab10
 		std::weak_ptr<Node<T>>   mTail;
 		unsigned                 mLength;
 	private:
-		std::shared_ptr<Node<T>> SearchData(const T& data) const;
+		std::shared_ptr<Node<T>> searchData(const T& data) const;
 	};
 
 	template <typename T>
@@ -99,7 +99,7 @@ namespace lab10
 	template <typename T>
 	bool DoublyLinkedList<T>::Delete(const T& data)
 	{
-		auto node = SearchData(data);
+		auto node = searchData(data);
 		if (node == nullptr)
 		{
 			return false;
@@ -130,7 +130,7 @@ namespace lab10
 	template <typename T>
 	bool DoublyLinkedList<T>::Search(const T& data) const
 	{
-		if (SearchData(data) == nullptr)
+		if (searchData(data) == nullptr)
 		{
 			return false;
 		}
@@ -160,7 +160,7 @@ namespace lab10
 	}
 
 	template <typename T>
-	std::shared_ptr<Node<T>> DoublyLinkedList<T>::SearchData(const T& data) const
+	std::shared_ptr<Node<T>> DoublyLinkedList<T>::searchData(const T& data) const
 	{
 		auto findNode = mEntry;
 		while (findNode != nullptr)
