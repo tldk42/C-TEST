@@ -28,7 +28,10 @@ namespace lab11
 		: mDataBank(std::make_unique<T[]>(length)),
 		  mLength(length)
 	{
-		std::fill_n(mDataBank.get(), mLength, 0);
+		for (std::size_t i = 0; i < mLength; ++i)
+		{
+			mDataBank[i] = 0;
+		}
 	}
 
 	template <typename T>
@@ -36,7 +39,10 @@ namespace lab11
 		: mDataBank(std::make_unique<T[]>(length)),
 		  mLength(length)
 	{
-		std::fill_n(mDataBank.get(), mLength, initialValue);
+		for (std::size_t i = 0; i < mLength; ++i)
+		{
+			mDataBank[i] = initialValue;
+		}
 	}
 
 	template <typename T>

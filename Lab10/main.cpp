@@ -3,30 +3,30 @@
 #include "DoublyLinkedList.h"
 #include "Node.h"
 
-// #ifdef _DEBUG
-// #define new new(_CLIENT_BLOCK, __FILE__, __LINE__)
-// #define malloc(s) _malloc_dbg(s, _NORMAL_BLOCK, __FILE__, __LINE__)
-// #endif
+#ifdef _DEBUG
+#define new new(_CLIENT_BLOCK, __FILE__, __LINE__)
+#define malloc(s) _malloc_dbg(s, _NORMAL_BLOCK, __FILE__, __LINE__)
+#endif
 
 using namespace lab10;
 
 int main()
 {
-	// _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//
-	//
-	// std::unique_ptr<int> number1 = std::make_unique<int>(1);
-	// std::shared_ptr<Node<int>> node1 = std::make_shared<Node<int>>(std::move(number1));
-	//
-	// std::unique_ptr<int> number2 = std::make_unique<int>(2);
-	//
-	// std::shared_ptr<Node<int>> node2 = std::make_shared<Node<int>>(std::move(number2), node1);
-	// node1->Next = node2;
-	// assert(node2->Previous.lock() == node1);
-	// assert(node1->Next == node2);
-	//
-	// DoublyLinkedList<int> list;
-	//
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	
+	
+	std::unique_ptr<int> number1 = std::make_unique<int>(1);
+	std::shared_ptr<Node<int>> node1 = std::make_shared<Node<int>>(std::move(number1));
+	
+	std::unique_ptr<int> number2 = std::make_unique<int>(2);
+	
+	std::shared_ptr<Node<int>> node2 = std::make_shared<Node<int>>(std::move(number2), node1);
+	node1->Next = node2;
+	assert(node2->Previous.lock() == node1);
+	assert(node1->Next == node2);
+	
+	DoublyLinkedList<int> list;
+	
 	// assert(list[0] == nullptr);
 	// assert(list[3] == nullptr);
 	// bool bEmptyDeleted = list.Delete(6);
