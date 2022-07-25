@@ -30,7 +30,7 @@ namespace lab11
 	{
 		for (std::size_t i = 0; i < mLength; ++i)
 		{
-			mDataBank[i] = 0;
+			mDataBank[i] = {};
 		}
 	}
 
